@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "taksa",
+  "version": "${version}",
+  "name": "Taksa",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/taksa/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "wtf.taksa.Taksa"
+    ]
+  },
+  "mixins": [
+    "taksa.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
