@@ -1,12 +1,16 @@
 package wtf.taksa;
 import lombok.Getter;
 import net.fabricmc.api.ModInitializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import wtf.taksa.core.Core;
 import wtf.taksa.manager.CommandManager;
 import wtf.taksa.manager.ModuleManager;
+import wtf.taksa.usual.utils.shader.ShaderManager;
 
 
 public class Taksa implements ModInitializer {
+    public static final Logger LOGGER = LoggerFactory.getLogger("Renderer");
 
     private static Taksa instance;
     @Getter
@@ -18,6 +22,8 @@ public class Taksa implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        ShaderManager.doInit();
+        LOGGER.info("Initialized renderer library");
         instance = this;
         commandManager = new CommandManager();
         moduleManager.init();

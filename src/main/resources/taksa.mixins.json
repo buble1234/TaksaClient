@@ -8,7 +8,13 @@
   "client": [
     "chat.ChatInputSuggestorMixin",
     "minecraft.MixinMinecraftClient",
-    "network.ClientPlayNetworkHandlerMixin"
+    "network.ClientPlayNetworkHandlerMixin",
+    "render.DebugHudMixin",
+    "render.GameRendererMixin",
+    "render.InGameHudMixin",
+    "accessor.NativeImageAccessor",
+    "accessor.PostEffectPassAccessor",
+    "render.PostEffectProcessorMixin"
   ],
   "injectors": {
     "defaultRequire": 1
