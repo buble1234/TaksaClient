@@ -6,7 +6,9 @@
   "mixins": [
   ],
   "client": [
-    "minecraft.MixinMinecraftClient"
+    "chat.ChatInputSuggestorMixin",
+    "minecraft.MixinMinecraftClient",
+    "network.ClientPlayNetworkHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

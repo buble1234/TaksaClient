@@ -1,16 +1,23 @@
 package wtf.taksa.core;
 
-import com.google.common.eventbus.EventBus;
+import meteordevelopment.orbit.EventBus;
+import meteordevelopment.orbit.IEventBus;
 import wtf.taksa.usual.utils.minecraft.ContextWrapper;
+
+import java.lang.invoke.MethodHandles;
 
 /**
  * Автор: NoCap
  * Дата создания: 23.06.2025
  */
 public class Core implements ContextWrapper {
-    public static EventBus EVENT_BUS = new EventBus();
+    public static final IEventBus EVENT_BUS = new EventBus();
+
 
     public void inCore() {
-        EVENT_BUS.register(this);
+        // капельку украл, но ето не щитаетса
+        EVENT_BUS.registerLambdaFactory("wtf.taksa",
+                (lookupInMethod, klass) -> (MethodHandles.Lookup) lookupInMethod.invoke(null, klass, MethodHandles.lookup()));
+        EVENT_BUS.subscribe(this);
     }
 }

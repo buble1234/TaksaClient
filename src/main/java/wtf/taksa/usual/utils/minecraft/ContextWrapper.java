@@ -13,5 +13,4 @@ public interface ContextWrapper {
     MinecraftClient mc = MinecraftClient.getInstance();
     Window window = mc.getWindow();
     Tessellator tessellator = Tessellator.getInstance();
-    BufferBuilder bufferBuilder = tessellator.getBuffer();
 }
