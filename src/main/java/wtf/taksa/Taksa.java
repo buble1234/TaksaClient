@@ -8,6 +8,8 @@ import wtf.taksa.manager.CommandManager;
 import wtf.taksa.manager.ModuleManager;
 import wtf.taksa.usual.utils.shader.ShaderManager;
 
+import static wtf.taksa.core.Core.EVENT_BUS;
+
 
 public class Taksa implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("Renderer");
@@ -22,12 +24,12 @@ public class Taksa implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        core.inCore();
         ShaderManager.doInit();
         LOGGER.info("Initialized renderer library");
         instance = this;
         commandManager = new CommandManager();
         moduleManager.init();
-        core.inCore();
     }
     public static Taksa getInstance() {
         return instance;
