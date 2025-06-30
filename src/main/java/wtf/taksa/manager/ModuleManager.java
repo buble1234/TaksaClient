@@ -4,6 +4,8 @@ import wtf.taksa.module.Module;
 import wtf.taksa.module.ModuleBinding;
 import wtf.taksa.module.ModuleHolder;
 import wtf.taksa.module.impl.client.ClickGUI;
+import wtf.taksa.module.impl.fight.AimAssist;
+import wtf.taksa.module.impl.fight.TriggerBot;
 import wtf.taksa.module.impl.movement.Sprint;
 
 import java.util.List;
@@ -26,7 +28,9 @@ public class ModuleManager {
 
         moduleHolder.register(
                 Sprint.class,
-                ClickGUI.class
+                ClickGUI.class,
+                TriggerBot.class,
+                AimAssist.class
         );
         modules.addAll(moduleHolder.getModules());
     }

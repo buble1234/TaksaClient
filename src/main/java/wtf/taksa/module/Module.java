@@ -99,4 +99,10 @@ public abstract class Module {
     public void addSetting(Setting<?> setting) {
         settings.add(setting);
     }
+
+    protected void addSettings(Setting<?>... newSettings) {
+        for (Setting<?> setting : newSettings) {
+            settings.add(setting);
+        }
+    }
 }

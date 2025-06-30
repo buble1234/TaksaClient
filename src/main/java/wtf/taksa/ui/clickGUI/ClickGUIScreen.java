@@ -119,4 +119,24 @@ public class ClickGUIScreen extends Screen {
     public boolean isPanelActive(CategoryPanel panel) {
         return activeCategoryPanel == panel;
     }
+
+    @Override
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
+        if (button == 0) {
+            for (CategoryPanel panel : categoryPanels) {
+                panel.mouseDragged(mouseX, mouseY);
+            }
+        }
+        return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+    }
+
+    @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        if (button == 0) {
+            for (CategoryPanel panel : categoryPanels) {
+                panel.mouseReleased();
+            }
+        }
+        return super.mouseReleased(mouseX, mouseY, button);
+    }
 }

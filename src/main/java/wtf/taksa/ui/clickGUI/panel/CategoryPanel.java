@@ -77,17 +77,16 @@ public class CategoryPanel {
         Color textColor = isActive ? Theme.text_dark : Theme.text_light;
 
         context.fill(x, y, x + width, y + height, backgroundColor.getRGB());
-        font.drawCenteredString(context.getMatrices(), category.getName(),
-                x + width / 2f, y + (height - font.getStringHeight(category.getName())) / 2f,
-                textColor.getRed() / 255f, textColor.getGreen() / 255f, textColor.getBlue() / 255f, textColor.getAlpha() / 255f);
+        font.drawCenteredString(context.getMatrices(), category.getName(), x + width / 2f, y + (height - font.getStringHeight(category.getName())) / 2f, textColor.getRed() / 255f, textColor.getGreen() / 255f, textColor.getBlue() / 255f, textColor.getAlpha() / 255f);
     }
 
     private void renderModulePanel(DrawContext context, int mouseX, int mouseY) {
         int modulePanelX = x + width + moduleXOffset;
-        int totalModuleHeight = moduleButtons.size() * (height + moduleSpace) - moduleSpace;
+        int totalModuleHeight = moduleButtons.isEmpty() ? 0 : (moduleButtons.size() * (height + moduleSpace) - moduleSpace);
 
-        context.fill(modulePanelX - padding, y - padding, modulePanelX + width + padding, y + totalModuleHeight + padding,
-                Theme.panel_background.getRGB());
+        if (totalModuleHeight > 0) {
+            context.fill(modulePanelX - padding, y - padding, modulePanelX + width + padding, y + totalModuleHeight + padding, Theme.panel_background.getRGB());
+        }
 
         int currentY = y;
         for (ModuleButton button : moduleButtons) {
@@ -120,6 +119,19 @@ public class CategoryPanel {
         return false;
     }
 
+    public void mouseDragged(double mouseX, double mouseY) {
+        if (activeSettingsPanel != null) {
+            activeSettingsPanel.mouseDragged(mouseX, mouseY);
+        }
+    }
+
+    public void mouseReleased() {
+        if (activeSettingsPanel != null) {
+            activeSettingsPanel.mouseReleased();
+        }
+    }
+
+
     public void setOpen(boolean open) {
         this.isOpen = open;
         if (!open) {
@@ -130,7 +142,8 @@ public class CategoryPanel {
     public void toggleSettingsPanel(ModuleButton button) {
         if (activeSettingsPanel != null && activeSettingsPanel.getModule() == button.getModule()) {
             activeSettingsPanel = null;
-        } else if (!button.getModule().getSettings().isEmpty()) {
+        }
+        else if (!button.getModule().getSettings().isEmpty()) {
             int settingsX = button.getX() + button.getWidth() + settingsXOffset;
             activeSettingsPanel = new SettingsPanel(button.getModule(), settingsX, button.getY(), width, font);
         }
