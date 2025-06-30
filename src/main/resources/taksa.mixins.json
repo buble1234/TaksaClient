@@ -16,7 +16,8 @@
     "render.DebugHudMixin",
     "render.GameRendererMixin",
     "render.InGameHudMixin",
-    "render.PostEffectProcessorMixin"
+    "render.PostEffectProcessorMixin",
+    "ui.MixinTitleScreen"
   ],
   "injectors": {
     "defaultRequire": 1
