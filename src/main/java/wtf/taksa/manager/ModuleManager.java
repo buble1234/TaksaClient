@@ -3,6 +3,7 @@ package wtf.taksa.manager;
 import wtf.taksa.module.Module;
 import wtf.taksa.module.ModuleBinding;
 import wtf.taksa.module.ModuleHolder;
+import wtf.taksa.module.impl.client.ClickGUI;
 import wtf.taksa.module.impl.movement.Sprint;
 
 import java.util.List;
@@ -24,7 +25,8 @@ public class ModuleManager {
     public void init() {
 
         moduleHolder.register(
-                Sprint.class
+                Sprint.class,
+                ClickGUI.class
         );
         modules.addAll(moduleHolder.getModules());
     }

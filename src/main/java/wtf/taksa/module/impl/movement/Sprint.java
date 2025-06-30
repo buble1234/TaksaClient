@@ -6,6 +6,7 @@ import wtf.taksa.core.events.minecraft.TickEvent;
 import wtf.taksa.module.Category;
 import wtf.taksa.module.Module;
 import wtf.taksa.module.ModuleRegistry;
+import wtf.taksa.module.setting.BooleanSetting;
 import wtf.taksa.usual.utils.player.SprintUtility;
 
 import static wtf.taksa.usual.utils.minecraft.ContextWrapper.mc;
@@ -16,6 +17,12 @@ import static wtf.taksa.usual.utils.minecraft.ContextWrapper.mc;
  */
 @ModuleRegistry(name = "Sprint", category = Category.MOVEMENT, description = "Позволяет бегать словно такса", bind = GLFW.GLFW_KEY_G)
 public class Sprint extends Module {
+
+    private final BooleanSetting keepSprint = new BooleanSetting("Test", false);
+
+    public Sprint() {
+        addSetting(keepSprint);
+    }
 
     @EventHandler
     public void onTick(TickEvent event) {

@@ -6,6 +6,7 @@ import meteordevelopment.orbit.IEventBus;
 import wtf.taksa.Taksa;
 import wtf.taksa.core.events.input.InputEvents;
 import wtf.taksa.manager.ModuleManager;
+import wtf.taksa.ui.clickGUI.ClickGUIScreen;
 import wtf.taksa.usual.utils.minecraft.ContextWrapper;
 
 import java.lang.invoke.MethodHandles;
@@ -16,7 +17,7 @@ import java.lang.invoke.MethodHandles;
  */
 public class Core implements ContextWrapper {
     public static final IEventBus EVENT_BUS = new EventBus();
-
+    private static ClickGUIScreen clickGUIScreen;
 
     public void inCore() {
         // капельку украл, но ето не щитаетса
@@ -39,5 +40,9 @@ public class Core implements ContextWrapper {
         if (moduleManager != null) {
             moduleManager.onMouseButton(event.getButton(), event.getAction());
         }
+    }
+
+    public static ClickGUIScreen getClickGuiScreen() {
+        return clickGUIScreen == null  ? clickGUIScreen = new ClickGUIScreen() : clickGUIScreen;
     }
 }

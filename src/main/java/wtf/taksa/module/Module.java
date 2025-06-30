@@ -1,6 +1,10 @@
 package wtf.taksa.module;
 
 import wtf.taksa.core.Core;
+import wtf.taksa.module.setting.Setting;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Автор: NoCap
@@ -12,6 +16,7 @@ public abstract class Module {
     private final String name;
     private final String description;
     private final Category category;
+    private final List<Setting<?>> settings = new ArrayList<>();
 
     private int bind;
     private boolean enabled;
@@ -34,7 +39,7 @@ public abstract class Module {
 
     protected void onDisable() {}
 
-    protected void toggle() {
+    public void toggle() {
         this.enabled = !this.enabled;
         if (this.enabled) {
             Core.EVENT_BUS.subscribe(this);
@@ -85,5 +90,13 @@ public abstract class Module {
 
     public void setBinding(ModuleBinding binding) {
         this.binding = binding;
+    }
+
+    public List<Setting<?>> getSettings() {
+        return settings;
+    }
+
+    public void addSetting(Setting<?> setting) {
+        settings.add(setting);
     }
 }
