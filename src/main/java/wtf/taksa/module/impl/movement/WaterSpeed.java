@@ -14,7 +14,8 @@ import static wtf.taksa.usual.utils.minecraft.ContextWrapper.mc;
  * Автор: dylib_developer
  * Дата создания: 01.07.2025
  */
-@ModuleRegistry(name = "WaterSpeed", category = Category.MOVEMENT, description = "осторожно ёбанный кал!!!", bind = GLFW.GLFW_KEY_J)
+
+@ModuleRegistry(name = "WaterSpeed", category = Category.MOVEMENT, description = "осторожно ёбанный кал хз фантайм мб бапас!!!")
 public class WaterSpeed extends Module {
 
 
@@ -25,11 +26,11 @@ public class WaterSpeed extends Module {
     public void onTick(TickEvent event) {
         if (mc.player == null) return;
 
-        if (mc.player.isTouchingWater() || mc.player.isInLava()) {
+        if (mc.player.isTouchingWater() && mc.player.isOnGround()) {
             mc.player.setVelocity(
-                    mc.player.getVelocity().x * 1.05,
+                    mc.player.getVelocity().x * 1.02,
                     mc.player.getVelocity().y,
-                    mc.player.getVelocity().z * 1.05
+                    mc.player.getVelocity().z
             );
         }
     }
