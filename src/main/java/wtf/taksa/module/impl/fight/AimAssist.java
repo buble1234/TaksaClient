@@ -84,7 +84,7 @@ public class AimAssist extends Module {
 
         float yawDifference = MathHelper.wrapDegrees(targetYaw - currentYaw);
 
-        float speed = (float) (aimSpeed.getValue() / 100.0);
+        float speed = (float) (aimSpeed.getValue() / 100.0) * 5;
         float stepYaw = yawDifference * speed;
 
         mc.player.setYaw(currentYaw + stepYaw);
