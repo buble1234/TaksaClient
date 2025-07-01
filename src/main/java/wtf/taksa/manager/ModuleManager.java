@@ -3,10 +3,11 @@ package wtf.taksa.manager;
 import wtf.taksa.module.Module;
 import wtf.taksa.module.ModuleBinding;
 import wtf.taksa.module.ModuleHolder;
-import wtf.taksa.module.impl.client.ClickGUI;
-import wtf.taksa.module.impl.fight.AimAssist;
-import wtf.taksa.module.impl.fight.TriggerBot;
-import wtf.taksa.module.impl.movement.Sprint;
+import wtf.taksa.module.impl.client.*;
+import wtf.taksa.module.impl.fight.*;
+import wtf.taksa.module.impl.miscellaneous.*;
+import wtf.taksa.module.impl.movement.*;
+import wtf.taksa.module.impl.player.*;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -28,6 +29,11 @@ public class ModuleManager {
 
         moduleHolder.register(
                 Sprint.class,
+                WaterSpeed.class,
+                Speed.class,
+                AntiAims.class,
+                Strafe.class,
+                ClickPearl.class,
                 ClickGUI.class,
                 TriggerBot.class,
                 AimAssist.class
