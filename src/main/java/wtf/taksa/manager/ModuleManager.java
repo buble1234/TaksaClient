@@ -8,7 +8,6 @@ import wtf.taksa.module.impl.fight.*;
 import wtf.taksa.module.impl.miscellaneous.*;
 import wtf.taksa.module.impl.movement.*;
 import wtf.taksa.module.impl.player.*;
-import wtf.taksa.module.impl.visuals.*;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -33,6 +32,7 @@ public class ModuleManager {
                 WaterSpeed.class,
                 Speed.class,
                 AntiAims.class,
+                Strafe.class,
                 ClickPearl.class,
                 ClickGUI.class,
                 TriggerBot.class,
