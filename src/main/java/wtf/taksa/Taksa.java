@@ -28,19 +28,6 @@ public class Taksa implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES)
-                .registerReloadListener(new SimpleSynchronousResourceReloadListener() {
-
-                    @Override
-                    public Identifier getFabricId() {
-                        return Identifier.of("taksa", "shader_reloader");
-                    }
-
-                    @Override
-                    public void reload(ResourceManager manager) {
-                        ShaderManager.INSTANCE.loadOrReload(manager);
-                    }
-                });
         core.inCore();
         LOGGER.info("Initialized renderer library");
         instance = this;
