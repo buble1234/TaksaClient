@@ -116,10 +116,10 @@ public class RendererUtils {
      * <p>Any of the components can be set to -1 to keep them from the original color</p>
      *
      * @param original       The original color
-     * @param redOverwrite   The new red component
-     * @param greenOverwrite The new green component
-     * @param blueOverwrite  The new blue component
-     * @param alphaOverwrite The new alpha component
+     * @param redOverwrite   The new red components
+     * @param greenOverwrite The new green components
+     * @param blueOverwrite  The new blue components
+     * @param alphaOverwrite The new alpha components
      * @return The new color
      */
     @Contract(value = "_, _, _, _, _ -> new", pure = true)

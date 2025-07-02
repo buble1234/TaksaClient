@@ -10,16 +10,16 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectList;
 import lombok.NonNull;
 import lombok.SneakyThrows;
-import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.*;
 import net.minecraft.client.render.VertexFormat.DrawMode;
-import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import wtf.taksa.Taksa;
+import wtf.taksa.render.shader.storage.RectangleShader;
+import wtf.taksa.usual.utils.math.Radius;
 import wtf.taksa.usual.utils.render.BufferUtils;
 import wtf.taksa.usual.utils.render.Colors;
 import wtf.taksa.usual.utils.render.RendererUtils;
@@ -197,10 +197,10 @@ public class FontRenderer implements Closeable {
      * @param s     The string to draw
      * @param x     X coordinate to draw at
      * @param y     Y coordinate to draw at
-     * @param r     Red color component of the text to draw
-     * @param g     Green color component of the text to draw
-     * @param b     Blue color component of the text to draw
-     * @param a     Alpha color component of the text to draw
+     * @param r     Red color components of the text to draw
+     * @param g     Green color components of the text to draw
+     * @param b     Blue color components of the text to draw
+     * @param a     Alpha color components of the text to draw
      */
     public void drawString(MatrixStack stack, String s, float x, float y, float r, float g, float b, float a) {
         if (prebakeGlyphsFuture != null && !prebakeGlyphsFuture.isDone()) {
@@ -304,6 +304,29 @@ public class FontRenderer implements Closeable {
 //		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, prevMag);
     }
 
+    public static void drawClippedStringWithFade(DrawContext context, FontRenderer font, String text, float x, float y, float maxWidth, Color color, Color backgroundColor) {
+        float textWidth = font.getStringWidth(text);
+
+        //RenderSystem.enableScissor((int)x, 0, (int)maxWidth, context.getScaledWindowHeight());
+
+        font.drawString(context.getMatrices(), text, x, y, color.getRed()/255f, color.getGreen()/255f, color.getBlue()/255f, color.getAlpha()/255f);
+
+        //RenderSystem.disableScissor();
+
+//        if (textWidth > maxWidth) {
+//            float gradientWidth = 10;
+//            float gradientX = x + maxWidth - gradientWidth;
+//
+//            Color transparent = new Color(backgroundColor.getRed(), backgroundColor.getGreen(), backgroundColor.getBlue(), 0);
+//
+//            BufferBuilder bufferBuilder = RendererUtils.preShaderDraw(context.getMatrices(), gradientX, y - 2, gradientWidth, font.getStringHeight(text) + 4);
+//            RectangleShader shader = RectangleShader.INSTANCE;
+//            shader.setParameters(gradientWidth, font.getStringHeight(text) + 4, new Radius(0), transparent, backgroundColor, backgroundColor, transparent, 1f, 1f, 0f);
+//            BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
+//            RendererUtils.endRender();
+//        }
+    }
+
     /**
      * Draws a string centered on the X coordinate
      *
@@ -311,10 +334,10 @@ public class FontRenderer implements Closeable {
      * @param s     The string to draw
      * @param x     X center coordinate of the text to draw
      * @param y     Y coordinate of the text to draw
-     * @param r     Red color component
-     * @param g     Green color component
-     * @param b     Blue color component
-     * @param a     Alpha color component
+     * @param r     Red color components
+     * @param g     Green color components
+     * @param b     Blue color components
+     * @param a     Alpha color components
      */
     public void drawCenteredString(MatrixStack stack, String s, float x, float y, float r, float g, float b, float a) {
         drawString(stack, s, x - getStringWidth(s) / 2f, y, r, g, b, a);

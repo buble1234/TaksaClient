@@ -14,10 +14,10 @@ public class Colors {
      * <p>Converts RGBA into one single integer</p>
      * <p>The output color is 0xAARRGGBB formatted</p>
      *
-     * @param r The red component
-     * @param g The green component
-     * @param b The blue component
-     * @param a The alpha component
+     * @param r The red components
+     * @param g The green components
+     * @param b The blue components
+     * @param a The alpha components
      * @return The integer describing the color, formatted 0xAARRGGBB
      */
     public static int ARGBToInt(@Range(from = 0, to = 255) int r, @Range(from = 0, to = 255) int g, @Range(from = 0, to = 255) int b, @Range(from = 0, to = 255) int a) {
@@ -32,10 +32,10 @@ public class Colors {
      * <p>Converts RGBA into one single integer</p>
      * <p>The output color is 0xRRGGBBAA formatted</p>
      *
-     * @param r The red component
-     * @param g The green component
-     * @param b The blue component
-     * @param a The alpha component
+     * @param r The red components
+     * @param g The green components
+     * @param b The blue components
+     * @param a The alpha components
      * @return The integer describing the color, formatted 0xRRGGBBAA
      */
     public static int RGBAToInt(@Range(from = 0, to = 255) int r, @Range(from = 0, to = 255) int g, @Range(from = 0, to = 255) int b, @Range(from = 0, to = 255) int a) {
@@ -50,7 +50,7 @@ public class Colors {
      * <p>Parses a single RGBA formatted integer into RGBA format</p>
      *
      * @param in The input color integer
-     * @return A length 4 array containing the R, G, B and A component of the color
+     * @return A length 4 array containing the R, G, B and A components of the color
      */
     public static int[] RGBAIntToRGBA(int in) {
         int red = in >> 8 * 3 & 0xFF;
@@ -64,7 +64,7 @@ public class Colors {
      * <p>Parses a single ARGB formatted integer into RGBA format</p>
      *
      * @param in The input color integer
-     * @return A length 4 array containing the R, G, B and A component of the color
+     * @return A length 4 array containing the R, G, B and A components of the color
      */
     public static int[] ARGBIntToRGBA(int in) {
         int alpha = in >> 8 * 3 & 0xFF;
@@ -78,7 +78,7 @@ public class Colors {
      * <p>Parses a single RGB formatted integer into RGB format</p>
      *
      * @param in The input color integer
-     * @return A length 3 array containing the R, G and B component of the color
+     * @return A length 3 array containing the R, G and B components of the color
      */
     public static int[] RGBIntToRGB(int in) {
         int red = in >> 8 * 2 & 0xFF;

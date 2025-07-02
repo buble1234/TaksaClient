@@ -3,33 +3,28 @@ package wtf.taksa.ui.clickGUI.panel;
 import net.minecraft.client.gui.DrawContext;
 import wtf.taksa.module.Category;
 import wtf.taksa.module.Module;
-import wtf.taksa.module.ModuleHolder;
 import wtf.taksa.render.font.FontRenderer;
 import wtf.taksa.ui.clickGUI.ClickGUIScreen;
-import wtf.taksa.ui.clickGUI.button.ModuleButton;
+import wtf.taksa.ui.clickGUI.components.impl.ModuleComponent;
 import wtf.taksa.ui.theme.Theme;
+import wtf.taksa.usual.utils.math.Radius;
+import wtf.taksa.usual.utils.render.RendererUtils;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.Color;
 
-/**
- * Автор: NoCap
- * Дата создания: 30.06.2025
- */
 public class CategoryPanel {
-    private static final int moduleSpace = 4;
     private static final int moduleXOffset = 10;
-    private static final int padding = 4;
     private static final int settingsXOffset = 10;
 
     private final Category category;
     private final int x, y, width, height;
     private final FontRenderer font;
     private final ClickGUIScreen parent;
-    private final List<ModuleButton> moduleButtons = new ArrayList<>();
+
     private boolean isOpen = false;
-    private SettingsPanel activeSettingsPanel;
+    private ModulePanel modulePanel;
+    private SettingBoxComponent activeSettingBox;
+    private Module activeSettingsModule = null;
 
     public CategoryPanel(Category category, int x, int y, int width, int height, FontRenderer font, ClickGUIScreen parent) {
         this.category = category;
@@ -39,33 +34,16 @@ public class CategoryPanel {
         this.height = height;
         this.font = font;
         this.parent = parent;
-        initializeModuleButtons();
-    }
-
-    private void initializeModuleButtons() {
-        if (font == null) {
-            System.err.println("FontRenderer is null in CategoryPanel for category: " + category.getName());
-            return;
-        }
-
-        int moduleX = x + width + moduleXOffset;
-        int moduleY = y;
-
-        for (Module module : ModuleHolder.getInstance().getModules(category)) {
-            moduleButtons.add(new ModuleButton(module, moduleX, moduleY, width, height, font, this));
-            moduleY += height + moduleSpace;
-        }
+        this.modulePanel = new ModulePanel(category, x + width + moduleXOffset, y, width, height, font, this);
     }
 
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        if (font == null) return;
-
         renderCategoryButton(context, mouseX, mouseY);
         if (isOpen) {
-            renderModulePanel(context, mouseX, mouseY);
+            modulePanel.render(context, mouseX, mouseY, delta);
         }
-        if (activeSettingsPanel != null) {
-            activeSettingsPanel.render(context, mouseX, mouseY);
+        if (activeSettingBox != null) {
+            activeSettingBox.render(context, mouseX, mouseY, delta);
         }
     }
 
@@ -73,83 +51,68 @@ public class CategoryPanel {
         boolean isHovered = isMouseOver(mouseX, mouseY, x, y, width, height);
         boolean isActive = parent.isPanelActive(this);
 
-        Color backgroundColor = isActive ? Theme.category_active : isHovered ? Theme.category_hover : Theme.category_inactive;
-        Color textColor = isActive ? Theme.text_dark : Theme.text_light;
+        Color backgroundColor = isActive ? Theme.CATEGORY_ACTIVE : isHovered ? Theme.CATEGORY_HOVER : Theme.CATEGORY_INACTIVE;
+        Color textColor = isActive ? Theme.TEXT_DARK : Theme.TEXT_LIGHT;
 
-        context.fill(x, y, x + width, y + height, backgroundColor.getRGB());
-        font.drawCenteredString(context.getMatrices(), category.getName(), x + width / 2f, y + (height - font.getStringHeight(category.getName())) / 2f, textColor.getRed() / 255f, textColor.getGreen() / 255f, textColor.getBlue() / 255f, textColor.getAlpha() / 255f);
-    }
+        RendererUtils.drawRectangle(context.getMatrices(), x, y, width, height, new Radius(5), backgroundColor, 1f, 1f, 0f);
 
-    private void renderModulePanel(DrawContext context, int mouseX, int mouseY) {
-        int modulePanelX = x + width + moduleXOffset;
-        int totalModuleHeight = moduleButtons.isEmpty() ? 0 : (moduleButtons.size() * (height + moduleSpace) - moduleSpace);
-
-        if (totalModuleHeight > 0) {
-            context.fill(modulePanelX - padding, y - padding, modulePanelX + width + padding, y + totalModuleHeight + padding, Theme.panel_background.getRGB());
-        }
-
-        int currentY = y;
-        for (ModuleButton button : moduleButtons) {
-            button.setY(currentY);
-            button.render(context, mouseX, mouseY);
-            currentY += height + moduleSpace;
-        }
+        float textWidth = width - 10;
+        FontRenderer.drawClippedStringWithFade(context, font, category.getName(),
+                x + width / 2f - font.getStringWidth(category.getName()) / 2f,
+                y + (height - font.getStringHeight(category.getName())) / 2f,
+                textWidth, textColor, backgroundColor);
     }
 
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (isMouseOver(mouseX, mouseY, x, y, width, height)) {
-            if (button == 0) {
-                parent.setActiveCategoryPanel(this);
-                return true;
-            }
+        if (isMouseOver(mouseX, mouseY, x, y, width, height) && button == 0) {
+            parent.setActiveCategoryPanel(this);
+            return true;
         }
 
-        if (isOpen) {
-            for (ModuleButton moduleButton : moduleButtons) {
-                if (moduleButton.mouseClicked(mouseX, mouseY, button)) {
-                    return true;
-                }
-            }
+        if (isOpen && modulePanel.mouseClicked(mouseX, mouseY, button)) {
+            return true;
         }
 
-        if (activeSettingsPanel != null && activeSettingsPanel.mouseClicked(mouseX, mouseY, button)) {
+        if (activeSettingBox != null && activeSettingBox.mouseClicked(mouseX, mouseY, button)) {
             return true;
         }
 
         return false;
     }
 
-    public void mouseDragged(double mouseX, double mouseY) {
-        if (activeSettingsPanel != null) {
-            activeSettingsPanel.mouseDragged(mouseX, mouseY);
+    public void mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
+        if (activeSettingBox != null) {
+            activeSettingBox.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
         }
     }
 
-    public void mouseReleased() {
-        if (activeSettingsPanel != null) {
-            activeSettingsPanel.mouseReleased();
+    public void mouseReleased(double mouseX, double mouseY, int button) {
+        if (activeSettingBox != null) {
+            activeSettingBox.mouseReleased(mouseX, mouseY, button);
         }
     }
-
 
     public void setOpen(boolean open) {
         this.isOpen = open;
         if (!open) {
-            activeSettingsPanel = null;
+            activeSettingBox = null;
+            activeSettingsModule = null;
         }
     }
 
-    public void toggleSettingsPanel(ModuleButton button) {
-        if (activeSettingsPanel != null && activeSettingsPanel.getModule() == button.getModule()) {
-            activeSettingsPanel = null;
-        }
-        else if (!button.getModule().getSettings().isEmpty()) {
-            int settingsX = button.getX() + button.getWidth() + settingsXOffset;
-            activeSettingsPanel = new SettingsPanel(button.getModule(), settingsX, button.getY(), width, font);
+    public void toggleSettingsPanel(ModuleComponent buttonComponent) {
+        Module module = buttonComponent.getModule();
+        if (activeSettingsModule == module) {
+            activeSettingBox = null;
+            activeSettingsModule = null;
+        } else if (!module.getSettings().isEmpty()) {
+            activeSettingsModule = module;
+            int settingsX = buttonComponent.getX() + buttonComponent.getWidth() + settingsXOffset;
+            activeSettingBox = new SettingBoxComponent(module, settingsX, buttonComponent.getY(), width, font);
         }
     }
 
-    private boolean isMouseOver(double mouseX, double mouseY, int rectX, int rectY, int rectWidth, int rectHeight) {
-        return mouseX >= rectX && mouseX <= rectX + rectWidth && mouseY >= rectY && mouseY <= rectY + rectHeight;
+    private boolean isMouseOver(double mouseX, double mouseY, int rX, int rY, int rW, int rH) {
+        return mouseX >= rX && mouseX <= rX + rW && mouseY >= rY && mouseY <= rY + rH;
     }
 }

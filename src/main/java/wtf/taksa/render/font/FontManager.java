@@ -12,9 +12,9 @@ public class FontManager {
 
     private static void lazyInit() {
         if (textRenderer == null) {
-            Font placeholderFont = new Font("Arial", Font.PLAIN, 18);
-            textRenderer = new FontRenderer(new Font[]{placeholderFont}, 18);
-            titleRenderer = new FontRenderer(new Font[]{placeholderFont}, 24);
+            Font placeholderFont = new Font("Arial", Font.PLAIN, 9);
+            textRenderer = new FontRenderer(new Font[]{placeholderFont}, 9);
+            titleRenderer = new FontRenderer(new Font[]{placeholderFont}, 12);
         }
     }
 
