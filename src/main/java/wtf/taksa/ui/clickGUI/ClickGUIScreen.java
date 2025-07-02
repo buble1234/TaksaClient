@@ -63,8 +63,8 @@ public class ClickGUIScreen extends Screen {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        RendererUtils.drawRectangle(context.getMatrices(), 10, 10, 100, 100, new Radius(7, 24, 9, 0), new Color(255, 0, 0),1, 6, 5);
-        //RendererUtils.drawBlur(context.getMatrices(), 10, 150, 100, 100, new Radius(5), 1, new Color(255, 255, 0), 1f, 1);
+        //RendererUtils.drawRectangle(context.getMatrices(), 10, 10, 100, 100, new Radius(7, 24, 9, 0), new Color(255, 0, 0),1, 6, 5);
+        RendererUtils.drawBlur(context.getMatrices(), 10, 100, 100, 100, new Radius(0), 0.1f, new Color(255, 255, 0), 1f, 1);
 //        backgroundAlpha = lerp(backgroundAlpha, 1f, delta * 0.15f);
 //        renderBackground(context, backgroundAlpha);
 //        renderCategoryPanels(context, mouseX, mouseY, delta);

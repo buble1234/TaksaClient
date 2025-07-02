@@ -17,7 +17,7 @@ import static wtf.taksa.core.Core.EVENT_BUS;
 
 
 public class Taksa implements ModInitializer {
-    public static final Logger LOGGER = LoggerFactory.getLogger("Renderer");
+    public static final Logger LOGGER = LoggerFactory.getLogger("LOGER SYKA");
 
     private static Taksa instance;
     @Getter
@@ -29,7 +29,6 @@ public class Taksa implements ModInitializer {
     @Override
     public void onInitialize() {
         core.inCore();
-        LOGGER.info("Initialized renderer library");
         instance = this;
         commandManager = new CommandManager();
         moduleManager.init();

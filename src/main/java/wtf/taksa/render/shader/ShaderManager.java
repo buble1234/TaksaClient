@@ -8,6 +8,7 @@ import net.minecraft.client.render.VertexFormats;
 import net.minecraft.resource.ResourceFactory;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
+import wtf.taksa.Taksa;
 import wtf.taksa.render.shader.storage.BlurShader;
 import wtf.taksa.render.shader.storage.RectangleShader;
 
@@ -40,6 +41,7 @@ public class ShaderManager {
                 ShaderProgram program = new FabricShaderProgram(factory, id, format);
                 loadedPrograms.put(id, program);
             } catch (IOException e) {
+                Taksa.LOGGER.error("Failed to load shader {}: {}", id, e.getMessage());
             }
         });
         RectangleShader.INSTANCE.onShadersLoaded();

@@ -14,15 +14,11 @@ import java.awt.Color;
 
 import static net.minecraft.client.MinecraftClient.IS_SYSTEM_MAC;
 
-/**
- * Автор: NoCap
- * Дата создания: 02.07.2025
- */
 public class BlurShader {
     public static final BlurShader INSTANCE = new BlurShader();
 
     private ShaderProgram shader;
-    private Framebuffer input;
+    public Framebuffer input;
     private Window window;
 
     private GlUniform sizeUniform;
@@ -53,9 +49,22 @@ public class BlurShader {
         this.input = new SimpleFramebuffer(window.getFramebufferWidth(), window.getFramebufferHeight(), true, IS_SYSTEM_MAC);
     }
 
+    public static void setupBuffer(Framebuffer frameBuffer) {
+        MinecraftClient mc = MinecraftClient.getInstance();
+        if (frameBuffer.textureWidth != mc.getFramebuffer().textureWidth ||
+                frameBuffer.textureHeight != mc.getFramebuffer().textureHeight) {
+            frameBuffer.resize(mc.getFramebuffer().textureWidth,
+                    mc.getFramebuffer().textureHeight, IS_SYSTEM_MAC);
+        } else {
+            frameBuffer.clear(IS_SYSTEM_MAC);
+        }
+    }
+
     private void bind() {
         MinecraftClient mc = MinecraftClient.getInstance();
         Framebuffer mainBuffer = mc.getFramebuffer();
+
+        setupBuffer(input);
 
         input.beginWrite(false);
         GL30.glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, mainBuffer.fbo);
@@ -64,33 +73,29 @@ public class BlurShader {
                 GL30.GL_COLOR_BUFFER_BIT, GL30.GL_NEAREST);
 
         mainBuffer.beginWrite(false);
-        
-        if (input != null && (input.textureWidth != window.getFramebufferWidth() || input.textureHeight != window.getFramebufferHeight())) {
-            input.resize(window.getFramebufferWidth(), window.getFramebufferHeight(), IS_SYSTEM_MAC);
-        }
 
         if (inputResolutionUniform != null)
             inputResolutionUniform.set((float) mainBuffer.textureWidth, (float) mainBuffer.textureHeight);
 
         this.shader.addSampler("InputSampler", this.input.getColorAttachment());
     }
-    
+
     public void use() {
         RenderSystem.setShader(ShaderManager.INSTANCE.getProgramSupplier(Shaders.BLUR));
     }
-    
+
     public void setParameters(float width, float height, Radius radius, float blurRadius, Color tintColor, float brightness, float smoothness) {
         if (this.shader == null) return;
 
         bind();
-        
+
         float scale = (float) window.getScaleFactor();
 
         if (sizeUniform != null) sizeUniform.set(width * scale, height * scale);
         if (radiusUniform != null) radiusUniform.set(radius.topLeft() * scale, radius.topRight() * scale, radius.bottomRight() * scale, radius.bottomLeft() * scale);
-        if (blurRadiusUniform != null) blurRadiusUniform.set(blurRadius);
+        if (blurRadiusUniform != null) blurRadiusUniform.set(blurRadius * scale);
         if (smoothnessUniform != null) smoothnessUniform.set(smoothness * scale);
-        
+
         if (brightnessUniform != null) brightnessUniform.set(brightness);
         if (color1Uniform != null) color1Uniform.set(tintColor.getRed() / 255f, tintColor.getGreen() / 255f, tintColor.getBlue() / 255f, tintColor.getAlpha() / 255f);
 
