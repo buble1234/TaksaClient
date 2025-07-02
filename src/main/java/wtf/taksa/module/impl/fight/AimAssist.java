@@ -3,6 +3,7 @@ package wtf.taksa.module.impl.fight;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.MathHelper;
 import wtf.taksa.core.events.minecraft.TickEvent;
@@ -11,6 +12,8 @@ import wtf.taksa.module.Module;
 import wtf.taksa.module.ModuleRegistry;
 import wtf.taksa.module.setting.BooleanSetting;
 import wtf.taksa.module.setting.DoubleSetting;
+import wtf.taksa.module.setting.ListSetting;
+import wtf.taksa.module.setting.ModeSetting;
 
 import java.util.Comparator;
 import java.util.stream.StreamSupport;
@@ -26,13 +29,17 @@ public class AimAssist extends Module {
 
     private final DoubleSetting aimSpeed = new DoubleSetting("Скорость", 5.0, 1.0, 20.0);
     private final DoubleSetting range = new DoubleSetting("Дальность", 4.5, 1.0, 6.0);
-    private final DoubleSetting fov = new DoubleSetting("Угол обзора (FOV)", 90.0, 10.0, 360.0);
+    private final DoubleSetting fov = new DoubleSetting("Угол обзора", 90.0, 10.0, 360.0);
     private final BooleanSetting onlyOnClick = new BooleanSetting("Только при клике", true);
-    private final BooleanSetting targetPlayers = new BooleanSetting("Игроки", true);
-    private final BooleanSetting targetMobs = new BooleanSetting("Мобы", false);
+
+    private final ModeSetting rotationMode = new ModeSetting("Режим", "Sigma", "Linear", "Sigma");
+    private final ListSetting targets = new ListSetting("Цели", "Players", "Mobs");
 
     public AimAssist() {
-        addSettings(aimSpeed, range, fov, onlyOnClick, targetPlayers, targetMobs);
+        targets.setValue("Players", true);
+        targets.setValue("Mobs", false);
+
+        addSettings(aimSpeed, range, fov, rotationMode, onlyOnClick, targets);
     }
 
     @EventHandler
@@ -67,9 +74,16 @@ public class AimAssist extends Module {
         if (mc.player.distanceTo(entity) > range.getValue()) return false;
         if (getAngleToEntity(entity) > fov.getValue() / 2.0) return false;
 
-        if (entity instanceof PlayerEntity && !targetPlayers.getValue()) return false;
-        if (!(entity instanceof PlayerEntity) && !targetMobs.getValue()) return false;
-        
+        if (entity instanceof PlayerEntity) {
+            if (!targets.isToggled("Players")) return false;
+        }
+        else if (entity instanceof HostileEntity) {
+            if (!targets.isToggled("Mobs")) return false;
+        }
+        else {
+            return false;
+        }
+
         // TODO: Можно добавить проверку на стены потом через булен
         // if (!mc.player.canSee(entity)) return false;
 
@@ -79,22 +93,31 @@ public class AimAssist extends Module {
     private void smoothlyRotate(LivingEntity target) {
         float[] targetRotations = getRotationsToEntity(target);
         float targetYaw = targetRotations[0];
-        
         float currentYaw = mc.player.getYaw();
-
         float yawDifference = MathHelper.wrapDegrees(targetYaw - currentYaw);
 
-        float speed = (float) (aimSpeed.getValue() / 100.0) * 5;
-        float stepYaw = yawDifference * speed;
+        float stepYaw;
+
+        switch (rotationMode.getValue()) {
+            case "Sigma":
+                float sigmaSpeed = (float) (25.0f - aimSpeed.getValue());
+                stepYaw = yawDifference / Math.max(1.0f, sigmaSpeed);
+                break;
+
+            case "Linear":
+            default:
+                float linearSpeed = (float) (aimSpeed.getValue() * 0.02);
+                stepYaw = yawDifference * linearSpeed;
+                break;
+        }
 
         mc.player.setYaw(currentYaw + stepYaw);
-        
-        // Todo: можно модифать питч но хз как будто бы и не надо
+
         /*
         float targetPitch = targetRotations[1];
         float currentPitch = mc.player.getPitch();
         float pitchDifference = targetPitch - currentPitch;
-        float stepPitch = pitchDifference * speed;
+        float stepPitch = pitchDifference * (rotationMode.getValue().equals("Linear") ? (float)(aimSpeed.getValue() * 0.02) : (1.0f / Math.max(1.0f, 25.0f - (float) aimSpeed.getValue())));
         mc.player.setPitch(currentPitch + stepPitch);
         */
     }

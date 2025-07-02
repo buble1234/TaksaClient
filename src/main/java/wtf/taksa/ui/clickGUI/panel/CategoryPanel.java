@@ -12,6 +12,10 @@ import wtf.taksa.usual.utils.render.RendererUtils;
 
 import java.awt.Color;
 
+/**
+ * Автор: NoCap
+ * Дата создания: 02.07.2025
+ */
 public class CategoryPanel {
     private static final int moduleXOffset = 10;
     private static final int settingsXOffset = 10;

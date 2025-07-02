@@ -15,6 +15,10 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Автор: NoCap
+ * Дата создания: 02.07.2025
+ */
 public class ModulePanel implements Component {
     private final List<ModuleComponent> components = new ArrayList<>();
     private int x, y, width, height, moduleHeight;

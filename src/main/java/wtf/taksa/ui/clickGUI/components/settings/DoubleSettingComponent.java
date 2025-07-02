@@ -11,6 +11,10 @@ import java.awt.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+/**
+ * Автор: NoCap
+ * Дата создания: 02.07.2025
+ */
 public class DoubleSettingComponent extends SettingComponent<DoubleSetting> {
 
     private boolean isDragging = false;

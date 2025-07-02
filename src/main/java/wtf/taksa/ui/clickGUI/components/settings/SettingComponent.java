@@ -10,6 +10,10 @@ import wtf.taksa.usual.utils.math.Radius;
 import wtf.taksa.usual.utils.render.RendererUtils;
 import java.awt.Color;
 
+/**
+ * Автор: NoCap
+ * Дата создания: 02.07.2025
+ */
 public abstract class SettingComponent<T extends Setting<?>> implements Component {
     protected final T setting;
     protected final FontRenderer font;

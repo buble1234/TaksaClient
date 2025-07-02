@@ -15,6 +15,10 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Автор: NoCap
+ * Дата создания: 02.07.2025
+ */
 public class ClickGUIScreen extends Screen {
     private static final int pX = 20, pY = 20, pW = 100, pH = 20, pSpacing = 4;
 

@@ -2,6 +2,10 @@ package wtf.taksa.ui.clickGUI.components;
 
 import net.minecraft.client.gui.DrawContext;
 
+/**
+ * Автор: NoCap
+ * Дата создания: 02.07.2025
+ */
 public interface Component {
     void render(DrawContext context, int mouseX, int mouseY, float delta);
     boolean mouseClicked(double mouseX, double mouseY, int button);

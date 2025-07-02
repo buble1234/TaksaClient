@@ -10,6 +10,10 @@ import wtf.taksa.usual.utils.math.Radius;
 import wtf.taksa.usual.utils.render.RendererUtils;
 import java.awt.Color;
 
+/**
+ * Автор: NoCap
+ * Дата создания: 02.07.2025
+ */
 public class ModuleComponent implements Component {
     private final Module module;
     private final CategoryPanel parent;

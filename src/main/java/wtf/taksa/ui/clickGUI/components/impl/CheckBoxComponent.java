@@ -10,6 +10,10 @@ import java.awt.*;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+/**
+ * Автор: NoCap
+ * Дата создания: 02.07.2025
+ */
 public class CheckBoxComponent implements Component {
     private int x, y, size;
     private final Supplier<Boolean> value;

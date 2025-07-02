@@ -6,6 +6,10 @@ import wtf.taksa.render.font.FontRenderer;
 import wtf.taksa.ui.clickGUI.components.impl.CheckBoxComponent;
 import java.awt.*;
 
+/**
+ * Автор: NoCap
+ * Дата создания: 02.07.2025
+ */
 public class BooleanSettingComponent extends SettingComponent<BooleanSetting> {
     
     private final CheckBoxComponent checkBox;
