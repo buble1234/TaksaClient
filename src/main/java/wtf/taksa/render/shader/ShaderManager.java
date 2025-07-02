@@ -8,6 +8,7 @@ import net.minecraft.client.render.VertexFormats;
 import net.minecraft.resource.ResourceFactory;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
+import wtf.taksa.render.shader.storage.BlurShader;
 import wtf.taksa.render.shader.storage.RectangleShader;
 
 import java.io.IOException;
@@ -15,6 +16,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
+/**
+ * Автор: NoCap
+ * Дата создания: 02.07.2025
+ */
 public class ShaderManager {
     public static final ShaderManager INSTANCE = new ShaderManager();
     private final Map<Identifier, VertexFormat> shaderFormats;
@@ -38,6 +43,7 @@ public class ShaderManager {
             }
         });
         RectangleShader.INSTANCE.onShadersLoaded();
+        BlurShader.INSTANCE.onShadersLoaded();
     }
 
     public void unload() {

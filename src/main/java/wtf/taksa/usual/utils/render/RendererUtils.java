@@ -19,6 +19,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
 import wtf.taksa.Taksa;
 import wtf.taksa.mixin.accessor.NativeImageAccessor;
+import wtf.taksa.render.shader.storage.BlurShader;
 import wtf.taksa.render.shader.storage.RectangleShader;
 import wtf.taksa.usual.utils.math.Radius;
 
@@ -219,17 +220,22 @@ public class RendererUtils {
         return buffer;
     }
 
-    public static void buildRect(MatrixStack matrices, float x, float y, float w, float h, float r, Color c1, Color c2, Color c3, Color c4, float a, float smoothness) {
-        BufferBuilder bufferBuilder = preShaderDraw(matrices, x, y, w, h);
+    public static void drawRectangle(MatrixStack matrices, float x, float y, float width, float height, Radius radius, Color color, float alpha, float brightness, float smoothness) {
+        BufferBuilder bufferBuilder = preShaderDraw(matrices, x, y, width, height);
         RectangleShader shader = RectangleShader.INSTANCE;
-        shader.setParameters(w, h, new Radius(r), c1, c2, c3, c4, a, 1.0f, smoothness);
-        shader.use();
+        shader.setParameters(width, height, radius, color, color, color, color, alpha, brightness, smoothness);
         BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
         endRender();
     }
 
-    public static void buildRect(MatrixStack matrices, float x, float y, float w, float h, float r, Color color, float a, float smoothness) {
-        buildRect(matrices, x, y, w, h, r, color, color, color, color, a, smoothness);
+    public static void drawBlur(MatrixStack matrices, float x, float y, float width, float height, Radius cornerRadius, float blurRadius, Color tintColor, float brightness, float smoothness) {
+        if (blurRadius <= 0) return;
+
+        BufferBuilder bufferBuilder = preShaderDraw(matrices, x, y, width, height);
+        BlurShader shader = BlurShader.INSTANCE;
+        shader.setParameters(width, height, cornerRadius, blurRadius, tintColor, brightness, smoothness);
+        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
+        endRender();
     }
 
     /**

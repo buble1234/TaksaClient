@@ -10,6 +10,10 @@ import wtf.taksa.usual.utils.math.Radius;
 
 import java.awt.Color;
 
+/**
+ * Автор: NoCap
+ * Дата создания: 02.07.2025
+ */
 public class RectangleShader {
     public static final RectangleShader INSTANCE = new RectangleShader();
 
@@ -64,6 +68,8 @@ public class RectangleShader {
 
         if (globalAlphaUniform != null) globalAlphaUniform.set(globalAlpha);
         if (brightnessUniform != null) brightnessUniform.set(brightness);
+
+        use();
     }
 
     public void setParameters(float width, float height, float radius, Color color, float alpha, float smoothness) {

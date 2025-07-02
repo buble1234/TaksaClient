@@ -1,25 +1,14 @@
 package wtf.taksa.core;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import meteordevelopment.orbit.EventBus;
 import meteordevelopment.orbit.EventHandler;
 import meteordevelopment.orbit.IEventBus;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.render.*;
-import net.minecraft.client.util.math.MatrixStack;
 import wtf.taksa.Taksa;
 import wtf.taksa.core.events.input.InputEvents;
-import wtf.taksa.core.events.render.RenderEvents;
 import wtf.taksa.manager.ModuleManager;
-import wtf.taksa.render.shader.storage.RectangleShader;
 import wtf.taksa.ui.clickGUI.ClickGUIScreen;
-import wtf.taksa.usual.utils.math.Radius;
 import wtf.taksa.usual.utils.minecraft.ContextWrapper;
-
-import java.awt.*;
 import java.lang.invoke.MethodHandles;
-
-import static wtf.taksa.usual.utils.render.RendererUtils.endRender;
 
 /**
  * Автор: NoCap
