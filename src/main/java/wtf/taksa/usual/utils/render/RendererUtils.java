@@ -3,7 +3,7 @@ package wtf.taksa.usual.utils.render;
 import com.mojang.blaze3d.systems.RenderSystem;
 import lombok.NonNull;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.Camera;
+import net.minecraft.client.render.*;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.client.util.math.MatrixStack;
@@ -19,6 +19,8 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
 import wtf.taksa.Taksa;
 import wtf.taksa.mixin.accessor.NativeImageAccessor;
+import wtf.taksa.render.shader.storage.RectangleShader;
+import wtf.taksa.usual.utils.math.Radius;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -199,6 +201,35 @@ public class RendererUtils {
         } catch (Throwable e) { // should never happen, but just in case
             Taksa.LOGGER.error("Failed to register buffered image as identifier {}", i, e);
         }
+    }
+
+    public static void setRectanglePoints(BufferBuilder buffer, Matrix4f matrix, float x, float y, float x1, float y1) {
+        buffer.vertex(matrix, x, y, 0);
+        buffer.vertex(matrix, x, y1, 0);
+        buffer.vertex(matrix, x1, y1, 0);
+        buffer.vertex(matrix, x1, y, 0);
+    }
+
+
+    public static BufferBuilder preShaderDraw(MatrixStack matrices, float x, float y, float width, float height) {
+        setupRender();
+        Matrix4f matrix = matrices.peek().getPositionMatrix();
+        BufferBuilder buffer = Tessellator.getInstance().begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION);
+        setRectanglePoints(buffer, matrix, x, y, x + width, y + height);
+        return buffer;
+    }
+
+    public static void buildRect(MatrixStack matrices, float x, float y, float w, float h, float r, Color c1, Color c2, Color c3, Color c4, float a, float smoothness) {
+        BufferBuilder bufferBuilder = preShaderDraw(matrices, x, y, w, h);
+        RectangleShader shader = RectangleShader.INSTANCE;
+        shader.setParameters(w, h, new Radius(r), c1, c2, c3, c4, a, 1.0f, smoothness);
+        shader.use();
+        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
+        endRender();
+    }
+
+    public static void buildRect(MatrixStack matrices, float x, float y, float w, float h, float r, Color color, float a, float smoothness) {
+        buildRect(matrices, x, y, w, h, r, color, color, color, color, a, smoothness);
     }
 
     /**
