@@ -36,6 +36,10 @@ public class ModuleManager {
                 ClickPearl.class,
                 ClickGUI.class,
                 TriggerBot.class,
+                AutoWind.class,
+                Spider.class,
+                NoSlow.class,
+                AirStuck.class,
                 AimAssist.class
         );
         modules.addAll(moduleHolder.getModules());

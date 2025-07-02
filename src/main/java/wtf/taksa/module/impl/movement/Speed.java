@@ -17,7 +17,7 @@ import static wtf.taksa.usual.utils.minecraft.ContextWrapper.mc;
 @ModuleRegistry(name = "Speed", category = Category.MOVEMENT, description = "спиды")
 public class Speed extends Module {
 
-    private final DoubleSetting spid = new DoubleSetting("Наземная скорость", 1.5, 0.1, 3.0);
+    private final DoubleSetting spid = new DoubleSetting("спид", 1.5, 0.1, 3.0);
 
     public Speed() {
         addSettings(spid);

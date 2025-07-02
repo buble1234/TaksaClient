@@ -1,7 +1,6 @@
 package wtf.taksa.module.impl.movement;
 
 import meteordevelopment.orbit.EventHandler;
-import org.lwjgl.glfw.GLFW;
 import wtf.taksa.core.events.minecraft.TickEvent;
 import wtf.taksa.module.Category;
 import wtf.taksa.module.Module;
