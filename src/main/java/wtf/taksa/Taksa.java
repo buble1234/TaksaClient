@@ -1,12 +1,17 @@
 package wtf.taksa;
 import lombok.Getter;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.resource.ResourceType;
+import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wtf.taksa.core.Core;
 import wtf.taksa.manager.CommandManager;
 import wtf.taksa.manager.ModuleManager;
-import wtf.taksa.usual.utils.shader.ShaderManager;
+import wtf.taksa.render.shader.ShaderManager;
 
 import static wtf.taksa.core.Core.EVENT_BUS;
 
@@ -19,13 +24,24 @@ public class Taksa implements ModInitializer {
     private final ModuleManager moduleManager = new ModuleManager();
     private static CommandManager commandManager;
 
-
     Core core = new Core();
 
     @Override
     public void onInitialize() {
+        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES)
+                .registerReloadListener(new SimpleSynchronousResourceReloadListener() {
+
+                    @Override
+                    public Identifier getFabricId() {
+                        return Identifier.of("taksa", "shader_reloader");
+                    }
+
+                    @Override
+                    public void reload(ResourceManager manager) {
+                        ShaderManager.INSTANCE.loadOrReload(manager);
+                    }
+                });
         core.inCore();
-        ShaderManager.doInit();
         LOGGER.info("Initialized renderer library");
         instance = this;
         commandManager = new CommandManager();
