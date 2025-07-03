@@ -27,7 +27,8 @@ public class Taksa implements ModInitializer {
     public void onInitialize() {
         core.inCore();
         instance = this;
-        commandManager = new CommandManager(moduleManager);
+
+        commandManager = new CommandManager();
         moduleManager.init();
 
         configManager = new ConfigManager(ModuleHolder.getInstance());

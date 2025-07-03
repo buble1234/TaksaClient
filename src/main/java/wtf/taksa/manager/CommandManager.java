@@ -2,7 +2,6 @@ package wtf.taksa.manager;
 
 
 import wtf.taksa.command.Command;
-import wtf.taksa.command.impl.ConfigCommand;
 import wtf.taksa.command.impl.HelpCommand;
 import wtf.taksa.usual.utils.chat.ChatUtil;
 
@@ -20,7 +19,6 @@ public class CommandManager {
 
     public CommandManager() {
         addCommand(new HelpCommand());
-        addCommand(new ConfigCommand());
     }
 
     public void addCommand(Command command) {
