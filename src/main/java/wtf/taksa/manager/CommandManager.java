@@ -3,6 +3,7 @@ package wtf.taksa.manager;
 
 import wtf.taksa.command.Command;
 import wtf.taksa.command.impl.HelpCommand;
+import wtf.taksa.command.impl.ToggleCommand;
 import wtf.taksa.usual.utils.chat.ChatUtil;
 
 import java.util.ArrayList;
@@ -16,9 +17,12 @@ import java.util.List;
 public class CommandManager {
     private static final String PREFIX = ".";
     private final List<Command> commands = new ArrayList<>();
+    private final ModuleManager moduleManager;
 
-    public CommandManager() {
+    public CommandManager(ModuleManager moduleManager) {
+        this.moduleManager = moduleManager;
         addCommand(new HelpCommand());
+        addCommand(new ToggleCommand(moduleManager));
     }
 
     public void addCommand(Command command) {

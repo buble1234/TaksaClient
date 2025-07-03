@@ -64,4 +64,14 @@ public class ModuleManager {
             }
         }
     }
+
+    public Module getModuleByName(String moduleName) {
+        if (moduleName == null) return null;
+        for (Module module : modules) {
+            if (module.getName() != null && module.getName().equalsIgnoreCase(moduleName)) {
+                return module;
+            }
+        }
+        return null;
+    }
 }

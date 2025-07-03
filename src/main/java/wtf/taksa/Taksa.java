@@ -30,7 +30,7 @@ public class Taksa implements ModInitializer {
     public void onInitialize() {
         core.inCore();
         instance = this;
-        commandManager = new CommandManager();
+        commandManager = new CommandManager(moduleManager);
         moduleManager.init();
     }
     public static Taksa getInstance() {
