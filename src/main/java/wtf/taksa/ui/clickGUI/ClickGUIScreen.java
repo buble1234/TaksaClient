@@ -7,6 +7,7 @@ import wtf.taksa.module.Category;
 import wtf.taksa.module.Module;
 import wtf.taksa.module.ModuleBinding;
 import wtf.taksa.module.ModuleHolder;
+import wtf.taksa.render.builder.RectBuilder;
 import wtf.taksa.render.font.FontManager;
 import wtf.taksa.render.font.FontRenderer;
 import wtf.taksa.ui.clickGUI.panel.CategoryPanel;
@@ -64,6 +65,14 @@ public class ClickGUIScreen extends Screen {
                 ColorUtils.fromHex("1B1B1B"),
                 11, 1
         );
+
+        // юзать билдер везде код будет чище
+        new RectBuilder()
+                .size(100, 50)
+                .radius(new Radius(5, 1, 5, 19))
+                .color(Color.RED)
+                .smoothness(5)
+                .render(context.getMatrices(), 10, 10);
 //        RendererUtils.drawRectangle(context.getMatrices(), 0, 0, width, height, new Radius(0), Theme.BACKGROUND, 1, 1, 0);
 //
 //        if (!categoryPanels.isEmpty()) {

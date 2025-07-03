@@ -52,7 +52,7 @@ public class RectangleShader {
         RenderSystem.setShader(ShaderManager.INSTANCE.getProgramSupplier(Shaders.RECTANGLE));
     }
 
-    public void setParameters(float width, float height, Radius radius, Color c1, Color c2, Color c3, Color c4, float globalAlpha, float brightness, float smoothness) {
+    public void setParameters(float width, float height, Radius radius, Color c1, Color c2, Color c3, Color c4, float brightness, float smoothness) {
         if (this.shader == null) return;
 
         float scale = (float) MinecraftClient.getInstance().getWindow().getScaleFactor();
@@ -61,26 +61,27 @@ public class RectangleShader {
         if (radiusUniform != null) radiusUniform.set(radius.topLeft() * scale, radius.topRight() * scale, radius.bottomRight() * scale, radius.bottomLeft() * scale);
         if (smoothnessUniform != null) smoothnessUniform.set(smoothness * scale);
 
-        if (color1Uniform != null) color1Uniform.set(c1.getRed() / 255f, c1.getGreen() / 255f, c1.getBlue() / 255f, c1.getAlpha() / 255f);
-        if (color2Uniform != null) color2Uniform.set(c2.getRed() / 255f, c2.getGreen() / 255f, c2.getBlue() / 255f, c2.getAlpha() / 255f);
-        if (color3Uniform != null) color3Uniform.set(c3.getRed() / 255f, c3.getGreen() / 255f, c3.getBlue() / 255f, c3.getAlpha() / 255f);
-        if (color4Uniform != null) color4Uniform.set(c4.getRed() / 255f, c4.getGreen() / 255f, c4.getBlue() / 255f, c4.getAlpha() / 255f);
+        if (color1Uniform != null) color1Uniform.set(c1.getRed() / 255f, c1.getGreen() / 255f, c1.getBlue() / 255f, 1.0f);
+        if (color2Uniform != null) color2Uniform.set(c2.getRed() / 255f, c2.getGreen() / 255f, c2.getBlue() / 255f, 1.0f);
+        if (color3Uniform != null) color3Uniform.set(c3.getRed() / 255f, c3.getGreen() / 255f, c3.getBlue() / 255f, 1.0f);
+        if (color4Uniform != null) color4Uniform.set(c4.getRed() / 255f, c4.getGreen() / 255f, c4.getBlue() / 255f, 1.0f);
 
-        if (globalAlphaUniform != null) globalAlphaUniform.set(globalAlpha);
+        if (globalAlphaUniform != null) globalAlphaUniform.set(c1.getAlpha() / 255f);
+
         if (brightnessUniform != null) brightnessUniform.set(brightness);
 
         use();
     }
 
-    public void setParameters(float width, float height, float radius, Color color, float alpha, float smoothness) {
-        setParameters(width, height, new Radius(radius), color, color, color, color, alpha, 1.0f, smoothness);
+    public void setParameters(float width, float height, float radius, Color color, float smoothness) {
+        setParameters(width, height, new Radius(radius), color, color, color, color, 1.0f, smoothness);
     }
-    
-    public void setVerticalGradient(float width, float height, float radius, Color topColor, Color bottomColor, float alpha, float smoothness) {
-        setParameters(width, height, new Radius(radius), topColor, topColor, bottomColor, bottomColor, alpha, 1.0f, smoothness);
+
+    public void setVerticalGradient(float width, float height, float radius, Color topColor, Color bottomColor, float smoothness) {
+        setParameters(width, height, new Radius(radius), topColor, topColor, bottomColor, bottomColor, 1.0f, smoothness);
     }
-    
-    public void setHorizontalGradient(float width, float height, float radius, Color leftColor, Color rightColor, float alpha, float smoothness) {
-        setParameters(width, height, new Radius(radius), leftColor, rightColor, leftColor, rightColor, alpha, 1.0f, smoothness);
+
+    public void setHorizontalGradient(float width, float height, float radius, Color leftColor, Color rightColor, float smoothness) {
+        setParameters(width, height, new Radius(radius), leftColor, rightColor, leftColor, rightColor, 1.0f, smoothness);
     }
 }

@@ -223,7 +223,7 @@ public class RendererUtils {
     public static void drawRectangle(MatrixStack matrices, float x, float y, float width, float height, Radius radius, Color color, float alpha, float brightness, float smoothness) {
         BufferBuilder bufferBuilder = preShaderDraw(matrices, x, y, width, height);
         RectangleShader shader = RectangleShader.INSTANCE;
-        shader.setParameters(width, height, radius, color, color, color, color, alpha, brightness, smoothness);
+        shader.setParameters(width, height, radius, color, color, color, color, brightness, smoothness);
         BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
         endRender();
     }
