@@ -42,6 +42,9 @@ public class Core implements ContextWrapper {
     }
 
     public static ClickGUIScreen getClickGuiScreen() {
-        return clickGUIScreen == null  ? clickGUIScreen = new ClickGUIScreen() : clickGUIScreen;
+        if (clickGUIScreen == null) {
+            clickGUIScreen = new ClickGUIScreen();
+        }
+        return clickGUIScreen;
     }
 }

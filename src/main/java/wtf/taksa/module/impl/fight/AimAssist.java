@@ -105,7 +105,7 @@ public class AimAssist extends Module {
 
             case "Linear":
             default:
-                float linearSpeed = (float) (aimSpeed.getValue() * 0.02);
+                float linearSpeed = (float) (aimSpeed.getValue() * 0.02) * 1.8f;
                 stepYaw = yawDifference * linearSpeed;
                 break;
         }

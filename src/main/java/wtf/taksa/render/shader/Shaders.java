@@ -15,4 +15,5 @@ public final class Shaders {
 
     public static final Identifier RECTANGLE = id("rectangle");
     public static final Identifier BLUR = id("blur");
+    public static final Identifier BORDER = id("border");
 }
