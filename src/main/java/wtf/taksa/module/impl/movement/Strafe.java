@@ -9,6 +9,7 @@ import wtf.taksa.module.setting.DoubleSetting;
 import wtf.taksa.module.setting.BooleanSetting;
 
 import static wtf.taksa.usual.utils.minecraft.ContextWrapper.mc;
+import static wtf.taksa.usual.utils.minecraft.ContextWrapper.nullcheck;
 
 /**
  * Автор: dylib_developer
@@ -28,7 +29,7 @@ public class Strafe extends Module {
 
     @EventHandler
     public void onTick(TickEvent event) {
-        if (mc.player == null) return;
+        if (nullcheck()) return;
 
         if (!isMoving()) {
             if (instantStop.getValue()) {

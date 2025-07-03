@@ -10,6 +10,7 @@ import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket;
 import net.minecraft.util.Hand;
 
 import static wtf.taksa.usual.utils.minecraft.ContextWrapper.mc;
+import static wtf.taksa.usual.utils.minecraft.ContextWrapper.nullcheck;
 
 /**
  * Автор: dylib_developer
@@ -21,7 +22,7 @@ public class NoSlow extends Module {
 
     @EventHandler
     public void onTick(TickEvent event) {
-        if (mc.player == null || mc.getNetworkHandler() == null) return;
+        if (nullcheck()) return;
 
         // Grim-обход только для OFF_HAND
         if (mc.player.isUsingItem() &&

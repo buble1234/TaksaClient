@@ -10,6 +10,7 @@ import wtf.taksa.module.ModuleRegistry;
 import java.lang.reflect.Field;
 
 import static wtf.taksa.usual.utils.minecraft.ContextWrapper.mc;
+import static wtf.taksa.usual.utils.minecraft.ContextWrapper.nullcheck;
 
 /**
  * Автор: dylib_developer
@@ -21,7 +22,7 @@ public class Spider extends Module {
 
     @EventHandler
     public void onTick(TickEvent event) {
-        if (mc.player == null || mc.world == null) return;
+        if (nullcheck()) return;
 
         boolean isColliding = mc.player.horizontalCollision;
 

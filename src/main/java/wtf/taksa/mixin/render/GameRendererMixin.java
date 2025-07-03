@@ -12,7 +12,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import wtf.taksa.Taksa;
 import wtf.taksa.core.events.render.RenderEvents;
+import wtf.taksa.module.impl.visual.NoRender;
 import wtf.taksa.render.shader.ShaderManager;
 import wtf.taksa.usual.utils.render.FastMStack;
 import wtf.taksa.usual.utils.render.RenderProfiler;
@@ -52,6 +54,13 @@ public abstract class GameRendererMixin {
             } catch (Exception e) {
                 System.err.println("Failed to reload shaders: " + e.getMessage());
             }
+        }
+    }
+
+    @Inject(method = "tiltViewWhenHurt", at = @At("HEAD"), cancellable = true)
+    private void removeHurtCam(MatrixStack matrices, float delta, CallbackInfo ci) {
+        if (Taksa.getInstance().getModuleManager().getModuleByName("NoRender").isEnabled() && ((NoRender) Taksa.getInstance().getModuleManager().getModuleByName("NoRender")).canRemoveHurtCam()) {
+            ci.cancel();
         }
     }
 }

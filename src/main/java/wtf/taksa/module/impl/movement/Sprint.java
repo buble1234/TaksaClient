@@ -10,6 +10,7 @@ import wtf.taksa.module.setting.BooleanSetting;
 import wtf.taksa.usual.utils.player.SprintUtility;
 
 import static wtf.taksa.usual.utils.minecraft.ContextWrapper.mc;
+import static wtf.taksa.usual.utils.minecraft.ContextWrapper.nullcheck;
 
 /**
  * Автор: NoCap
@@ -26,7 +27,7 @@ public class Sprint extends Module {
 
     @EventHandler
     public void onTick(TickEvent event) {
-        if (mc.player == null) return;
+        if (nullcheck()) return;
 
         boolean canSprint = SprintUtility.canStartSprinting();
 
