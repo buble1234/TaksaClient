@@ -4,11 +4,15 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import wtf.taksa.module.Category;
+import wtf.taksa.module.Module;
+import wtf.taksa.module.ModuleBinding;
+import wtf.taksa.module.ModuleHolder;
 import wtf.taksa.render.font.FontManager;
 import wtf.taksa.render.font.FontRenderer;
 import wtf.taksa.ui.clickGUI.panel.CategoryPanel;
 import wtf.taksa.ui.theme.Theme;
 import wtf.taksa.usual.utils.math.Radius;
+import wtf.taksa.usual.utils.minecraft.KeyUtils;
 import wtf.taksa.usual.utils.render.RendererUtils;
 
 import java.awt.Color;
@@ -61,6 +65,36 @@ public class ClickGUIScreen extends Screen {
             if (panel.mouseClicked(mouseX, mouseY, button)) return true;
         }
         return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+        boolean consumed = false;
+        for (CategoryPanel panel : categoryPanels) {
+            if (panel.mouseScrolled(mouseX, mouseY, verticalAmount)) {
+                consumed = true;
+                break;
+            }
+        }
+
+        if (!consumed && verticalAmount != 0) {
+            int bind = verticalAmount > 0 ? KeyUtils.MW_UP : KeyUtils.MW_DOWN;
+            for (Module module : ModuleHolder.getInstance().getModules()) {
+                if (module.getBind() == bind) {
+                    ModuleBinding.handle(module, true);
+                }
+            }
+        }
+
+        return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (activeCategoryPanel != null && activeCategoryPanel.keyPressed(keyCode, scanCode, modifiers)) {
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override

@@ -58,6 +58,11 @@ public class ModulePanel implements Component {
         }
         return false;
     }
+
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
+        return false;
+    }
     
     public ModuleComponent getComponentForModule(Module module) {
         return components.stream().filter(c -> c.getModule() == module).findFirst().orElse(null);
@@ -66,7 +71,7 @@ public class ModulePanel implements Component {
     @Override public boolean mouseReleased(double mouseX, double mouseY, int button) { return false; }
     @Override public void mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {}
     @Override public void setX(int x) { this.x = x; components.forEach(c -> c.setX(x)); }
-    @Override public void setY(int y) { this.y = y; /* Позиция каждого компонента вычисляется при создании */ }
+    @Override public void setY(int y) { this.y = y; }
     @Override public int getX() { return x; }
     @Override public int getY() { return y; }
     @Override public int getWidth() { return width; }

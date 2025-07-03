@@ -36,18 +36,18 @@ public class ModuleComponent implements Component {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         boolean isHovered = isMouseOver(mouseX, mouseY);
         Color bgColor = isHovered ? Theme.COMPONENT_HOVER : Theme.COMPONENT_BACKGROUND;
-        
+
         RendererUtils.drawRectangle(context.getMatrices(), x, y, width, height, new Radius(3), bgColor, 1f, 1f, 0f);
-        
+
         checkBox.render(context, mouseX, mouseY, delta);
 
         float textX = x + checkBox.getWidth() + 8;
         float textWidth = width - (checkBox.getWidth() + 8) - (!module.getSettings().isEmpty() ? 15 : 5);
         FontRenderer.drawClippedStringWithFade(context, font, module.getName(), textX, y + (height - font.getStringHeight(module.getName())) / 2f, textWidth, Theme.TEXT_LIGHT, bgColor);
-        
+
         if (!module.getSettings().isEmpty()) {
-            font.drawString(context.getMatrices(), ">", x + width - font.getStringWidth(">") - 5, y + (height - font.getStringHeight(">")) / 2f, 
-                          Theme.TEXT_GRAY.getRed()/255f, Theme.TEXT_GRAY.getGreen()/255f, Theme.TEXT_GRAY.getBlue()/255f, 1f);
+            font.drawString(context.getMatrices(), ">", x + width - font.getStringWidth(">") - 5, y + (height - font.getStringHeight(">")) / 2f,
+                    Theme.TEXT_GRAY.getRed()/255f, Theme.TEXT_GRAY.getGreen()/255f, Theme.TEXT_GRAY.getBlue()/255f, 1f);
         }
     }
 
@@ -56,7 +56,7 @@ public class ModuleComponent implements Component {
         if (!isMouseOver(mouseX, mouseY)) {
             return false;
         }
-        
+
         if (checkBox.mouseClicked(mouseX, mouseY, button)) {
             return true;
         }
@@ -65,9 +65,15 @@ public class ModuleComponent implements Component {
             parent.toggleSettingsPanel(this);
             return true;
         }
+
+        if (button == 2) {
+            parent.toggleBindPanel(this);
+            return true;
+        }
+
         return false;
     }
-    
+
     private boolean isMouseOver(double mouseX, double mouseY) {
         return mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height;
     }

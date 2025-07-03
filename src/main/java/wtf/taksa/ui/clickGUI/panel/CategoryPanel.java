@@ -6,11 +6,12 @@ import wtf.taksa.module.Module;
 import wtf.taksa.render.font.FontRenderer;
 import wtf.taksa.ui.clickGUI.ClickGUIScreen;
 import wtf.taksa.ui.clickGUI.components.impl.ModuleComponent;
+import wtf.taksa.ui.clickGUI.components.settings.KeyBindComponent;
 import wtf.taksa.ui.theme.Theme;
 import wtf.taksa.usual.utils.math.Radius;
 import wtf.taksa.usual.utils.render.RendererUtils;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * Автор: NoCap
@@ -18,7 +19,7 @@ import java.awt.Color;
  */
 public class CategoryPanel {
     private static final int moduleXOffset = 10;
-    private static final int settingsXOffset = 10;
+    private static final int panelXOffset = 10;
 
     private final Category category;
     private final int x, y, width, height;
@@ -27,8 +28,12 @@ public class CategoryPanel {
 
     private boolean isOpen = false;
     private ModulePanel modulePanel;
+
     private SettingBoxComponent activeSettingBox;
     private Module activeSettingsModule = null;
+
+    private KeyBindComponent activeBindComponent;
+    private Module activeBindModule = null;
 
     public CategoryPanel(Category category, int x, int y, int width, int height, FontRenderer font, ClickGUIScreen parent) {
         this.category = category;
@@ -49,6 +54,9 @@ public class CategoryPanel {
         if (activeSettingBox != null) {
             activeSettingBox.render(context, mouseX, mouseY, delta);
         }
+        if (activeBindComponent != null) {
+            activeBindComponent.render(context, mouseX, mouseY, delta);
+        }
     }
 
     private void renderCategoryButton(DrawContext context, int mouseX, int mouseY) {
@@ -68,19 +76,44 @@ public class CategoryPanel {
     }
 
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (activeBindComponent != null && activeBindComponent.mouseClicked(mouseX, mouseY, button)) {
+            return true;
+        }
+        if (activeSettingBox != null && activeSettingBox.mouseClicked(mouseX, mouseY, button)) {
+            return true;
+        }
+        if (isOpen && modulePanel.mouseClicked(mouseX, mouseY, button)) {
+            return true;
+        }
+
         if (isMouseOver(mouseX, mouseY, x, y, width, height) && button == 0) {
             parent.setActiveCategoryPanel(this);
             return true;
         }
 
-        if (isOpen && modulePanel.mouseClicked(mouseX, mouseY, button)) {
+        return false;
+    }
+
+    public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
+        if (activeBindComponent != null && activeBindComponent.mouseScrolled(mouseX, mouseY, amount)) {
             return true;
         }
-
-        if (activeSettingBox != null && activeSettingBox.mouseClicked(mouseX, mouseY, button)) {
+        if (activeSettingBox != null && activeSettingBox.mouseScrolled(mouseX, mouseY, amount)) {
             return true;
         }
+        if (isOpen && modulePanel.mouseScrolled(mouseX, mouseY, amount)) {
+            return true;
+        }
+        return false;
+    }
 
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (activeBindComponent != null && activeBindComponent.keyPressed(keyCode, scanCode, modifiers)) {
+            return true;
+        }
+        if (activeSettingBox != null && activeSettingBox.keyPressed(keyCode, scanCode, modifiers)) {
+            return true;
+        }
         return false;
     }
 
@@ -101,6 +134,8 @@ public class CategoryPanel {
         if (!open) {
             activeSettingBox = null;
             activeSettingsModule = null;
+            activeBindComponent = null;
+            activeBindModule = null;
         }
     }
 
@@ -111,8 +146,24 @@ public class CategoryPanel {
             activeSettingsModule = null;
         } else if (!module.getSettings().isEmpty()) {
             activeSettingsModule = module;
-            int settingsX = buttonComponent.getX() + buttonComponent.getWidth() + settingsXOffset;
+            int settingsX = buttonComponent.getX() + buttonComponent.getWidth() + panelXOffset;
             activeSettingBox = new SettingBoxComponent(module, settingsX, buttonComponent.getY(), width, font);
+        }
+    }
+
+    public void toggleBindPanel(ModuleComponent buttonComponent) {
+        Module module = buttonComponent.getModule();
+        if (activeBindModule == module) {
+            activeBindComponent = null;
+            activeBindModule = null;
+        } else {
+            activeBindModule = module;
+            int bindPanelX = buttonComponent.getX() + buttonComponent.getWidth() + panelXOffset;
+            int yPos = buttonComponent.getY();
+            if (activeSettingsModule == module && activeSettingBox != null) {
+                bindPanelX = activeSettingBox.getX() + activeSettingBox.getWidth() + panelXOffset;
+            }
+            activeBindComponent = new KeyBindComponent(module, bindPanelX, yPos, width + 20, height, font);
         }
     }
 

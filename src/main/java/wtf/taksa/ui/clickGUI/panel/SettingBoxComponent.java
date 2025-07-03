@@ -104,9 +104,25 @@ public class SettingBoxComponent implements Component {
         }
     }
 
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
+        for (Component component : components) {
+            if (component.mouseScrolled(mouseX, mouseY, amount)) return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        for (Component component : components) {
+            if (component.keyPressed(keyCode, scanCode, modifiers)) return true;
+        }
+        return false;
+    }
+
     public Module getModule() { return module; }
     @Override public void setX(int x) { this.x = x; components.forEach(c -> c.setX(x)); }
-    @Override public void setY(int y) { /* Логика позиционирования в конструкторе */ }
+    @Override public void setY(int y) {}
     @Override public int getX() { return x; }
     @Override public int getY() { return y; }
     @Override public int getWidth() { return width; }
