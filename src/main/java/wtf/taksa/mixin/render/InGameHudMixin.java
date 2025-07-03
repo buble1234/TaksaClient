@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import wtf.taksa.Taksa;
 import wtf.taksa.core.events.render.RenderEvents;
-import wtf.taksa.module.impl.visual.NoRender;
+import wtf.taksa.module.impl.visuals.NoRender;
 import wtf.taksa.usual.utils.render.RenderProfiler;
 /**
  * @author Kenny1337

@@ -13,7 +13,7 @@ import wtf.taksa.usual.utils.math.Timer;
 
 import static wtf.taksa.usual.utils.minecraft.ContextWrapper.mc;
 
-@ModuleRegistry(name = "ContainerStealer", category = Category.PLAYER)
+@ModuleRegistry(name = "ChestStealer", category = Category.PLAYER)
 public class ChestStealer extends Module {
     private final DoubleSetting delay = new DoubleSetting("Delay", 100, 5, 1000);
     private final Timer timer = new Timer();

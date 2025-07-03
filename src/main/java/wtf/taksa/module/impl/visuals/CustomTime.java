@@ -1,4 +1,4 @@
-package wtf.taksa.module.impl.visual;
+package wtf.taksa.module.impl.visuals;
 
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.network.packet.s2c.play.WorldTimeUpdateS2CPacket;

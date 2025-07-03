@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import wtf.taksa.Taksa;
-import wtf.taksa.module.impl.visual.NoRender;
+import wtf.taksa.module.impl.visuals.NoRender;
 
 @Mixin(InGameOverlayRenderer.class)
 public class MixinInGameOverlayRenderer {

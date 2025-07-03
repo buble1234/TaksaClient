@@ -1,4 +1,4 @@
-package wtf.taksa.module.impl.visual;
+package wtf.taksa.module.impl.visuals;
 
 import lombok.Getter;
 import wtf.taksa.module.Category;
