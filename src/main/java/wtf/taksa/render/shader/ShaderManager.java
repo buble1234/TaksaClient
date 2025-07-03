@@ -10,6 +10,7 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 import wtf.taksa.Taksa;
 import wtf.taksa.render.shader.storage.BlurShader;
+import wtf.taksa.render.shader.storage.BorderShader;
 import wtf.taksa.render.shader.storage.RectangleShader;
 
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class ShaderManager {
 
     private ShaderManager() {
         this.shaderFormats = ImmutableMap.<Identifier, VertexFormat>builder()
-            .put(Shaders.RECTANGLE, VertexFormats.POSITION_COLOR).put(Shaders.BLUR, VertexFormats.POSITION_COLOR)
+            .put(Shaders.RECTANGLE, VertexFormats.POSITION_COLOR).put(Shaders.BLUR, VertexFormats.POSITION_COLOR).put(Shaders.BORDER, VertexFormats.POSITION_COLOR)
             .build();
     }
 
@@ -46,6 +47,7 @@ public class ShaderManager {
         });
         RectangleShader.INSTANCE.onShadersLoaded();
         BlurShader.INSTANCE.onShadersLoaded();
+        BorderShader.INSTANCE.onShadersLoaded();
     }
 
     public void unload() {
