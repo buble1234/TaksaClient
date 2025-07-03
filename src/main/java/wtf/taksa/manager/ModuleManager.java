@@ -8,6 +8,7 @@ import wtf.taksa.module.impl.fight.*;
 import wtf.taksa.module.impl.miscellaneous.*;
 import wtf.taksa.module.impl.movement.*;
 import wtf.taksa.module.impl.player.*;
+import wtf.taksa.module.impl.visuals.AspectRatio;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -40,7 +41,8 @@ public class ModuleManager {
                 Spider.class,
                 NoSlow.class,
                 AirStuck.class,
-                AimAssist.class
+                AimAssist.class,
+                AspectRatio.class
         );
         modules.addAll(moduleHolder.getModules());
     }

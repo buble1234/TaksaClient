@@ -1,20 +1,15 @@
 package wtf.taksa;
+
 import lombok.Getter;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.resource.ResourceType;
-import net.minecraft.util.Identifier;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import wtf.taksa.core.Core;
 import wtf.taksa.manager.CommandManager;
+import wtf.taksa.manager.ConfigManager;
 import wtf.taksa.manager.ModuleManager;
-import wtf.taksa.render.shader.ShaderManager;
+import wtf.taksa.module.ModuleHolder;
 
-import static wtf.taksa.core.Core.EVENT_BUS;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Taksa implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("LOGER SYKA");
@@ -23,6 +18,8 @@ public class Taksa implements ModInitializer {
     @Getter
     private final ModuleManager moduleManager = new ModuleManager();
     private static CommandManager commandManager;
+    private static ConfigManager configManager;
+    private static boolean configInitialized = false;
 
     Core core = new Core();
 
@@ -30,13 +27,28 @@ public class Taksa implements ModInitializer {
     public void onInitialize() {
         core.inCore();
         instance = this;
+
         commandManager = new CommandManager();
         moduleManager.init();
+
+        configManager = new ConfigManager(ModuleHolder.getInstance());
     }
+    public static void initConfig() {
+        if (!configInitialized && configManager != null) {
+            configManager.loadDefaultConfig();
+            configInitialized = true;
+        }
+    }
+
     public static Taksa getInstance() {
         return instance;
     }
+
     public static CommandManager getCommandManager() {
         return commandManager;
+    }
+
+    public static ConfigManager getConfigManager() {
+        return configManager;
     }
 }

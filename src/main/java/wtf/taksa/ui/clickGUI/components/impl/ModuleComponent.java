@@ -20,6 +20,8 @@ public class ModuleComponent implements Component {
     private final FontRenderer font;
     private final CheckBoxComponent checkBox;
     private int x, y, width, height;
+    
+    private static final int CHECK_BOX_SIZE = 16;
 
     public ModuleComponent(Module module, int x, int y, int width, int height, FontRenderer font, CategoryPanel parent) {
         this.module = module;
@@ -29,7 +31,13 @@ public class ModuleComponent implements Component {
         this.height = height;
         this.font = font;
         this.parent = parent;
-        this.checkBox = new CheckBoxComponent(x + 4, y + (height - 12) / 2, 12, module::isEnabled, (val) -> module.toggle());
+        this.checkBox = new CheckBoxComponent(
+            x + 5,
+            y + (height - CHECK_BOX_SIZE) / 2,
+            CHECK_BOX_SIZE,
+            module::isEnabled,
+            (val) -> module.toggle()
+        );
     }
 
     @Override
@@ -41,8 +49,8 @@ public class ModuleComponent implements Component {
 
         checkBox.render(context, mouseX, mouseY, delta);
 
-        float textX = x + checkBox.getWidth() + 8;
-        float textWidth = width - (checkBox.getWidth() + 8) - (!module.getSettings().isEmpty() ? 15 : 5);
+        float textX = x + checkBox.getWidth() + 12;
+        float textWidth = width - (checkBox.getWidth() + 16) - (!module.getSettings().isEmpty() ? 15 : 5);
         FontRenderer.drawClippedStringWithFade(context, font, module.getName(), textX, y + (height - font.getStringHeight(module.getName())) / 2f, textWidth, Theme.TEXT_LIGHT, bgColor);
 
         if (!module.getSettings().isEmpty()) {
@@ -81,8 +89,14 @@ public class ModuleComponent implements Component {
     public Module getModule() { return module; }
     @Override public boolean mouseReleased(double mouseX, double mouseY, int button) { return false; }
     @Override public void mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {}
-    @Override public void setX(int x) { this.x = x; checkBox.setX(x + 4); }
-    @Override public void setY(int y) { this.y = y; checkBox.setY(y + (height - 12) / 2); }
+    @Override public void setX(int x) { 
+        this.x = x; 
+        checkBox.setX(x + 5);
+    }
+    @Override public void setY(int y) { 
+        this.y = y; 
+        checkBox.setY(y + (height - CHECK_BOX_SIZE) / 2);
+    }
     @Override public int getX() { return x; }
     @Override public int getY() { return y; }
     @Override public int getWidth() { return width; }
