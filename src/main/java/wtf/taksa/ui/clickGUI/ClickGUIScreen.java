@@ -53,26 +53,37 @@ public class ClickGUIScreen extends Screen {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        RendererUtils.drawRectangle(context.getMatrices(), 0, 0, width, height, new Radius(0), Theme.BACKGROUND, 1, 1, 0);
-
-        if (!categoryPanels.isEmpty()) {
-            int panelHeight = (categoryPanels.size() * (pH + pSpacing)) - pSpacing + 10;
-
-            RendererUtils.drawRectangle(
-                    context.getMatrices(),
-                    pX - 5,
-                    pY - 5,
-                    pW + 10,
-                    panelHeight,
-                    new Radius(6),
-                    ColorUtils.fromHex("1B1B1B"),
-                    1, 1, 1
-            );
-        }
-
-        for (CategoryPanel panel : categoryPanels) {
-            panel.render(context, mouseX, mouseY, delta);
-        }
+        RendererUtils.drawBlur(
+                context.getMatrices(),
+                1,
+                1,
+                300,
+                300,
+                new Radius(10),
+                10,
+                ColorUtils.fromHex("1B1B1B"),
+                11, 1
+        );
+//        RendererUtils.drawRectangle(context.getMatrices(), 0, 0, width, height, new Radius(0), Theme.BACKGROUND, 1, 1, 0);
+//
+//        if (!categoryPanels.isEmpty()) {
+//            int panelHeight = (categoryPanels.size() * (pH + pSpacing)) - pSpacing + 10;
+//
+//            RendererUtils.drawRectangle(
+//                    context.getMatrices(),
+//                    pX - 5,
+//                    pY - 5,
+//                    pW + 10,
+//                    panelHeight,
+//                    new Radius(6),
+//                    ColorUtils.fromHex("1B1B1B"),
+//                    1, 1, 1
+//            );
+//        }
+//
+//        for (CategoryPanel panel : categoryPanels) {
+//            panel.render(context, mouseX, mouseY, delta);
+//        }
     }
 
     @Override

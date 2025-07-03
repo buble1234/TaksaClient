@@ -29,7 +29,7 @@ public class ShaderManager {
 
     private ShaderManager() {
         this.shaderFormats = ImmutableMap.<Identifier, VertexFormat>builder()
-            .put(Shaders.RECTANGLE, VertexFormats.POSITION_COLOR)
+            .put(Shaders.RECTANGLE, VertexFormats.POSITION_COLOR).put(Shaders.BLUR, VertexFormats.POSITION_COLOR)
             .build();
     }
 
