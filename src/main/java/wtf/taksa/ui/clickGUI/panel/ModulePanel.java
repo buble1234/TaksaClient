@@ -44,7 +44,7 @@ public class ModulePanel implements Component {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         if (components.isEmpty()) return;
         final int padding = 4;
-        RendererUtils.drawRectangle(context.getMatrices(), x - padding, y - padding, width + padding * 2, height + padding * 2, new Radius(5), Theme.PANEL_BACKGROUND, 1f, 1f, 0f);
+        RendererUtils.drawRectangle(context.getMatrices(), x - padding, y - padding, width + padding * 2, height + padding * 2, new Radius(6), Theme.PANEL_BACKGROUND, 1f, 1f, 1f);
         
         for (ModuleComponent component : components) {
             component.render(context, mouseX, mouseY, delta);

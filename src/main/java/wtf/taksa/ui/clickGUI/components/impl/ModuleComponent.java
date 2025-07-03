@@ -37,7 +37,7 @@ public class ModuleComponent implements Component {
         boolean isHovered = isMouseOver(mouseX, mouseY);
         Color bgColor = isHovered ? Theme.COMPONENT_HOVER : Theme.COMPONENT_BACKGROUND;
 
-        RendererUtils.drawRectangle(context.getMatrices(), x, y, width, height, new Radius(3), bgColor, 1f, 1f, 0f);
+        RendererUtils.drawRectangle(context.getMatrices(), x, y, width, height, new Radius(6), bgColor, 1f, 1f, 1f);
 
         checkBox.render(context, mouseX, mouseY, delta);
 

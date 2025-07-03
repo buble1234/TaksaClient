@@ -1,5 +1,7 @@
 package wtf.taksa.ui.theme;
 
+import wtf.taksa.usual.utils.color.ColorUtils;
+
 import java.awt.Color;
 
 /**
@@ -9,7 +11,7 @@ import java.awt.Color;
  */
 public class Theme {
     // Основные цвета фона
-    public static final Color BACKGROUND = new Color(0, 0, 0, 100);
+    public static final Color BACKGROUND = ColorUtils.fromHex("1B1B1B");
     public static final Color PANEL_BACKGROUND = new Color(25, 25, 25, 220);
 
     // Цвета категорий
