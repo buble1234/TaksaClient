@@ -43,6 +43,7 @@ public class ModuleManager {
                 NoRender.class,
                 TriggerBot.class,
                 AutoWind.class,
+                AutoRespawn.class,
                 Spider.class,
                 AutoTotem.class,
                 NoSlow.class,

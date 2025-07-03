@@ -16,7 +16,6 @@
     "network.ClientConnectionMixin",
     "render.MixinItemEntityRenderer",
     "render.MixinInGameOverlayRenderer",
-    "render",
     "render.DebugHudMixin",
     "render.GameRendererMixin",
     "render.InGameHudMixin",

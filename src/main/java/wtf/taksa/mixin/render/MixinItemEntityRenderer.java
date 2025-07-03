@@ -25,7 +25,7 @@ import wtf.taksa.Taksa;
 // TODO: Нахуй сюда не лезьте я еблан
 
 @Mixin(ItemEntityRenderer.class)
-public abstract class MixinItemEntityRenderer {
+public class MixinItemEntityRenderer {
 
     @Shadow
     @Final
