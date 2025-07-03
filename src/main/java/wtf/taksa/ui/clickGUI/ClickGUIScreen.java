@@ -7,6 +7,7 @@ import wtf.taksa.module.Category;
 import wtf.taksa.module.Module;
 import wtf.taksa.module.ModuleBinding;
 import wtf.taksa.module.ModuleHolder;
+import wtf.taksa.render.builder.RectBuilder;
 import wtf.taksa.render.font.FontManager;
 import wtf.taksa.render.font.FontRenderer;
 import wtf.taksa.ui.clickGUI.panel.CategoryPanel;
@@ -30,8 +31,6 @@ public class ClickGUIScreen extends Screen {
     private final List<CategoryPanel> categoryPanels = new ArrayList<>();
     private CategoryPanel activeCategoryPanel;
     private FontRenderer font;
-    
-    private static int lastActiveCategoryIndex = 0;
 
     public ClickGUIScreen() {
         super(Text.literal("ClickGUI"));
@@ -50,14 +49,7 @@ public class ClickGUIScreen extends Screen {
             categoryPanels.add(panel);
             currentY += pH + pSpacing;
         }
-        
-        if (!categoryPanels.isEmpty()) {
-            if (lastActiveCategoryIndex >= 0 && lastActiveCategoryIndex < categoryPanels.size()) {
-                setActiveCategoryPanel(categoryPanels.get(lastActiveCategoryIndex));
-            } else {
-                setActiveCategoryPanel(categoryPanels.get(0));
-            }
-        }
+        if (!categoryPanels.isEmpty()) setActiveCategoryPanel(categoryPanels.get(0));
     }
 
     @Override
@@ -73,26 +65,34 @@ public class ClickGUIScreen extends Screen {
                 ColorUtils.fromHex("1B1B1B"),
                 11, 1
         );
-        RendererUtils.drawRectangle(context.getMatrices(), 0, 0, width, height, new Radius(0), Theme.BACKGROUND, 1, 1, 0);
 
-        if (!categoryPanels.isEmpty()) {
-            int panelHeight = (categoryPanels.size() * (pH + pSpacing)) - pSpacing + 10;
-
-            RendererUtils.drawRectangle(
-                    context.getMatrices(),
-                    pX - 5,
-                    pY - 5,
-                    pW + 10,
-                    panelHeight,
-                    new Radius(6),
-                    ColorUtils.fromHex("1B1B1B"),
-                    1, 1, 1
-            );
-        }
-
-        for (CategoryPanel panel : categoryPanels) {
-           panel.render(context, mouseX, mouseY, delta);
-        }
+        // юзать билдер везде код будет чище
+        new RectBuilder()
+                .size(100, 50)
+                .radius(new Radius(5, 1, 5, 19))
+                .color(Color.RED)
+                .smoothness(5)
+                .render(context.getMatrices(), 10, 10);
+//        RendererUtils.drawRectangle(context.getMatrices(), 0, 0, width, height, new Radius(0), Theme.BACKGROUND, 1, 1, 0);
+//
+//        if (!categoryPanels.isEmpty()) {
+//            int panelHeight = (categoryPanels.size() * (pH + pSpacing)) - pSpacing + 10;
+//
+//            RendererUtils.drawRectangle(
+//                    context.getMatrices(),
+//                    pX - 5,
+//                    pY - 5,
+//                    pW + 10,
+//                    panelHeight,
+//                    new Radius(6),
+//                    ColorUtils.fromHex("1B1B1B"),
+//                    1, 1, 1
+//            );
+//        }
+//
+//        for (CategoryPanel panel : categoryPanels) {
+//            panel.render(context, mouseX, mouseY, delta);
+//        }
     }
 
     @Override
@@ -156,10 +156,7 @@ public class ClickGUIScreen extends Screen {
         if (activeCategoryPanel == newActivePanel) return;
         if (activeCategoryPanel != null) activeCategoryPanel.setOpen(false);
         activeCategoryPanel = newActivePanel;
-        if (activeCategoryPanel != null) {
-            activeCategoryPanel.setOpen(true);
-            lastActiveCategoryIndex = categoryPanels.indexOf(newActivePanel);
-        }
+        if (activeCategoryPanel != null) activeCategoryPanel.setOpen(true);
     }
 
     public boolean isPanelActive(CategoryPanel panel) {
