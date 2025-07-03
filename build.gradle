@@ -46,6 +46,7 @@ configurations {
 
 dependencies {
     // To change the versions see the gradle.properties file
+    implementation 'net.java.dev.jna:jna:5.13.0'
     compileOnly 'org.projectlombok:lombok:1.18.34'
     annotationProcessor 'org.projectlombok:lombok:1.18.34'
     minecraft "com.mojang:minecraft:${project.minecraft_version}"

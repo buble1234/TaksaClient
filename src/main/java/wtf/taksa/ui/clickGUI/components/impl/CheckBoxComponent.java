@@ -1,9 +1,9 @@
 package wtf.taksa.ui.clickGUI.components.impl;
 
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.util.Identifier;
 import wtf.taksa.ui.clickGUI.components.Component;
 import wtf.taksa.ui.theme.Theme;
-import wtf.taksa.usual.utils.math.Radius;
 import wtf.taksa.usual.utils.render.RendererUtils;
 
 import java.awt.*;
@@ -18,6 +18,9 @@ public class CheckBoxComponent implements Component {
     private int x, y, size;
     private final Supplier<Boolean> value;
     private final Consumer<Boolean> action;
+    
+    private static final Identifier CHECK_BOX = Identifier.of("taksa", "textures/gui/clickgui/check_box.png");
+    private static final Identifier INDETERMINATE_CHECK_BOX = Identifier.of("taksa", "textures/gui/clickgui/indeterminate_check_box.png");
 
     public CheckBoxComponent(int x, int y, int size, Supplier<Boolean> value, Consumer<Boolean> action) {
         this.x = x;
@@ -29,15 +32,11 @@ public class CheckBoxComponent implements Component {
     
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        boolean isHovered = isMouseOver(mouseX, mouseY);
-        Color boxColor = isHovered ? Theme.COMPONENT_HOVER : Theme.COMPONENT_BACKGROUND;
+        boolean isChecked = value.get();
         
-        RendererUtils.drawRectangle(context.getMatrices(), x, y, size, size, new Radius(2), boxColor, 1f, 1f, 0f);
+        Identifier texture = isChecked ? CHECK_BOX : INDETERMINATE_CHECK_BOX;
         
-        if (value.get()) {
-            Color checkColor = isHovered ? Theme.ACCENT_HOVER : Theme.ACCENT;
-            RendererUtils.drawRectangle(context.getMatrices(), x + 2, y + 2, size - 4, size - 4, new Radius(1), checkColor, 1f, 1f, 0f);
-        }
+        context.drawTexture(texture, x, y, 0, 0, size, size, size, size);
     }
     
     @Override
