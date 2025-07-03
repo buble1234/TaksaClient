@@ -3,7 +3,7 @@ package wtf.taksa.usual.utils.color;
 import java.awt.Color;
 
 /**
- * Автор: NoCap && NickL
+ * Автор: NoCap
  * Дата создания: 03.07.2025
  */
 public final class ColorUtils {
