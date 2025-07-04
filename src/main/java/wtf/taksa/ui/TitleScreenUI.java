@@ -9,6 +9,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import wtf.taksa.render.builder.KaleidoscopeBuilder;
+import wtf.taksa.render.builder.UniverseWithinBuilder;
+import wtf.taksa.render.shader.storage.RadarBuilder;
 
 /**
  * Автор: NoCap
@@ -16,15 +18,30 @@ import wtf.taksa.render.builder.KaleidoscopeBuilder;
  */
 public class TitleScreenUI extends Screen {
 
+    private enum BackgroundShader {
+        KALEIDOSCOPE,
+        UNIVERSE_WITHIN,
+        RADAR; // Вот он!
+
+        public BackgroundShader next() {
+            BackgroundShader[] values = values();
+            return values[(this.ordinal() + 1) % values.length];
+        }
+    }
+
+    private static BackgroundShader currentShader = BackgroundShader.KALEIDOSCOPE;
+
     private static final Identifier SINGLEPLAYER_ICON = Identifier.of("taksa", "textures/gui/singleplayer.png");
     private static final Identifier MULTIPLAYER_ICON = Identifier.of("taksa", "textures/gui/multiplayer.png");
     private static final Identifier OPTIONS_ICON = Identifier.of("taksa", "textures/gui/gear.png");
     private static final Identifier QUIT_ICON = Identifier.of("taksa", "textures/gui/cross.png");
+    private static final Identifier SWITCH_SHADER_ICON = Identifier.of("taksa", "textures/gui/switch_shader.png");
 
     private Button singleplayerButton;
     private Button multiplayerButton;
     private Button optionsButton;
     private Button quitButton;
+    private Button switchShaderButton;
 
     public TitleScreenUI() {
         super(Text.literal("Такса Пес Крутой"));
@@ -41,49 +58,50 @@ public class TitleScreenUI extends Screen {
         int buttonSpacing = 15;
 
         int totalButtonsWidth = (buttonSize * 4) + (buttonSpacing * 3);
-
         int startX = centerX - totalButtonsWidth / 2;
-
         int buttonY = centerY + 60;
 
-        singleplayerButton = new Button(
-                startX, buttonY, buttonSize,
-                SINGLEPLAYER_ICON,
-                () -> client.setScreen(new SelectWorldScreen(this))
-        );
-
+        singleplayerButton = new Button(startX, buttonY, buttonSize, SINGLEPLAYER_ICON, () -> client.setScreen(new SelectWorldScreen(this)));
         startX += buttonSize + buttonSpacing;
-        multiplayerButton = new Button(
-                startX, buttonY, buttonSize,
-                MULTIPLAYER_ICON,
-                () -> client.setScreen(new MultiplayerScreen(this))
-        );
-
+        multiplayerButton = new Button(startX, buttonY, buttonSize, MULTIPLAYER_ICON, () -> client.setScreen(new MultiplayerScreen(this)));
         startX += buttonSize + buttonSpacing;
-        optionsButton = new Button(
-                startX, buttonY, buttonSize,
-                OPTIONS_ICON,
-                () -> client.setScreen(new OptionsScreen(this, client.options))
-        );
-
+        optionsButton = new Button(startX, buttonY, buttonSize, OPTIONS_ICON, () -> client.setScreen(new OptionsScreen(this, client.options)));
         startX += buttonSize + buttonSpacing;
-        quitButton = new Button(
-                startX, buttonY, buttonSize,
-                QUIT_ICON,
-                () -> client.scheduleStop()
+        quitButton = new Button(startX, buttonY, buttonSize, QUIT_ICON, () -> client.scheduleStop());
+
+        int smallButtonSize = 20;
+        switchShaderButton = new Button(
+                this.width - smallButtonSize - 5, 5, smallButtonSize,
+                SWITCH_SHADER_ICON,
+                () -> currentShader = currentShader.next()
         );
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
-        new KaleidoscopeBuilder()
-                .size(this.width, this.height)
-                .render(context.getMatrices(), 0, 0);
+        switch (currentShader) {
+            case KALEIDOSCOPE:
+                new KaleidoscopeBuilder()
+                        .size(this.width, this.height)
+                        .render(context.getMatrices(), 0, 0);
+                break;
+            case UNIVERSE_WITHIN:
+                new UniverseWithinBuilder()
+                        .size(this.width, this.height)
+                        .render(context.getMatrices(), 0, 0);
+                break;
+            case RADAR:
+                new RadarBuilder()
+                        .size(this.width, this.height)
+                        .render(context.getMatrices(), 0, 0);
+                break;
+        }
 
         singleplayerButton.render(context, mouseX, mouseY);
         multiplayerButton.render(context, mouseX, mouseY);
         optionsButton.render(context, mouseX, mouseY);
         quitButton.render(context, mouseX, mouseY);
+        switchShaderButton.render(context, mouseX, mouseY);
     }
 
     @Override
@@ -107,6 +125,10 @@ public class TitleScreenUI extends Screen {
             }
             if (quitButton.isMouseOver((int) mouseX, (int) mouseY)) {
                 quitButton.onClick();
+                return true;
+            }
+            if (switchShaderButton.isMouseOver((int) mouseX, (int) mouseY)) {
+                switchShaderButton.onClick();
                 return true;
             }
         }

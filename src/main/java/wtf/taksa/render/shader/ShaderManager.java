@@ -9,10 +9,8 @@ import net.minecraft.resource.ResourceFactory;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 import wtf.taksa.Taksa;
-import wtf.taksa.render.shader.storage.BlurShader;
-import wtf.taksa.render.shader.storage.BorderShader;
-import wtf.taksa.render.shader.storage.KaleidoscopeShader;
-import wtf.taksa.render.shader.storage.RectangleShader;
+import wtf.taksa.render.builder.RadarShader;
+import wtf.taksa.render.shader.storage.*;
 
 import java.io.IOException;
 import java.util.Map;
@@ -32,6 +30,7 @@ public class ShaderManager {
     private ShaderManager() {
         this.shaderFormats = ImmutableMap.<Identifier, VertexFormat>builder()
                 .put(Shaders.RECTANGLE, VertexFormats.POSITION_COLOR).put(Shaders.BLUR, VertexFormats.POSITION_COLOR).put(Shaders.BORDER, VertexFormats.POSITION_COLOR).put(Shaders.KALEIDOSCOPE, VertexFormats.POSITION_COLOR)
+                .put(Shaders.UNIVERSE_WITHIN, VertexFormats.POSITION_COLOR).put(Shaders.RADAR, VertexFormats.POSITION_COLOR)
                 .build();
     }
 
@@ -50,6 +49,8 @@ public class ShaderManager {
         BlurShader.INSTANCE.onShadersLoaded();
         BorderShader.INSTANCE.onShadersLoaded();
         KaleidoscopeShader.INSTANCE.onShadersLoaded();
+        UniverseWithinShader.INSTANCE.onShadersLoaded();
+        RadarShader.INSTANCE.onShadersLoaded();
     }
 
     public void unload() {

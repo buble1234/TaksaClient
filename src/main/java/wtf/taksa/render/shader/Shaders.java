@@ -17,4 +17,6 @@ public final class Shaders {
     public static final Identifier BLUR = id("blur");
     public static final Identifier BORDER = id("border");
     public static final Identifier KALEIDOSCOPE = id("kaleidoscope");
+    public static final Identifier UNIVERSE_WITHIN = id("universe_within");
+    public static final Identifier RADAR = id("radar");
 }

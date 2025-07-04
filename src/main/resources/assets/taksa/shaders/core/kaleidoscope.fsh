@@ -41,7 +41,6 @@ float tick(float t, float d) {
   return (floor(t) + g)*d;
 }
 
-// Kaleidoscopic iterated function system
 vec3 kifs(vec3 p, float t) {
   for(int i=0; i<3; ++i) {
     float t1 = tick(t + i, 0.4 + i*0.1) + t*0.3;
@@ -74,9 +73,7 @@ float map(vec3 p) {
 
 void main(void)
 {
-  // Адаптация UV-координат под твой фреймворк
   vec2 uv = FragCoord - 0.5;
-  // Коррекция соотношения сторон, чтобы изображение не было искажено
   uv.x *= Size.x / Size.y;
 
   vec2 buv = uv;
@@ -90,7 +87,6 @@ void main(void)
   vec3 p=s;
   float at=0.0;
   bool inside = false;
-  // main raymarching loop
   for(int i=0; i<100; ++i) {
     float d=map(p);
     if(d<0.01) {
@@ -104,7 +100,6 @@ void main(void)
     at+=0.9/(3.0+abs(d));
   }
 
-  // if we hit a surface
   if(inside) {
     vec2 off=vec2(0.01,0);
     vec3 n=normalize(map(p)-vec3(map(p-off.xyy), map(p-off.yxy), map(p-off.yyx)));
@@ -125,7 +120,6 @@ void main(void)
 
   float prog = Time * 0.3;
   float preanim = floor(mod(prog-0.5, 6));
-  // transitions types
   if(preanim == 0) {
     prog += at*0.02;
   } else if(preanim==1) {
@@ -144,7 +138,6 @@ void main(void)
 
   float wantinverse = floor(mod(prog/6,2));
 
-  // background types
   if(scene == 1 ) {
     val = step(min(grid2.x, grid2.y), 0.04);
   }
