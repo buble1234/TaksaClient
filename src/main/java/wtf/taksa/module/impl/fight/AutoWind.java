@@ -12,6 +12,7 @@ import wtf.taksa.module.Module;
 import wtf.taksa.module.ModuleRegistry;
 
 import static wtf.taksa.usual.utils.minecraft.ContextWrapper.mc;
+import static wtf.taksa.usual.utils.minecraft.ContextWrapper.nullcheck;
 
 //todo: ДОБАВИТЬ АВТОПРЫЖОК ЧТОБЫ ПРЫГАЛО ВЫШЕ И ТЕМ САМЫМ БЫЛО БОЛЬШЕ ВРЕМЕНИ НА ТО ПОКА ОТКДШИТСЯ БУЛАВА
 
@@ -25,7 +26,7 @@ public class AutoWind extends Module {
 
     @EventHandler
     public void onTick(TickEvent event) {
-        if (mc.player == null || mc.interactionManager == null) return;
+        if (nullcheck()) return;
 
         if (previousSlot != -1 && System.currentTimeMillis() - lastActionTime > 1) {
             mc.player.getInventory().selectedSlot = previousSlot;

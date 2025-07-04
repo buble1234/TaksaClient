@@ -13,4 +13,8 @@ public interface ContextWrapper {
     MinecraftClient mc = MinecraftClient.getInstance();
     Window window = mc.getWindow();
     Tessellator tessellator = Tessellator.getInstance();
+
+    public static boolean nullcheck() {
+        return mc.player == null || mc.getNetworkHandler() == null;
+    }
 }

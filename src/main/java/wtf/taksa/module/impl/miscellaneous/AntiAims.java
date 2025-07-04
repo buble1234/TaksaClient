@@ -7,6 +7,7 @@ import wtf.taksa.module.Module;
 import wtf.taksa.module.ModuleRegistry;
 
 import static wtf.taksa.usual.utils.minecraft.ContextWrapper.mc;
+import static wtf.taksa.usual.utils.minecraft.ContextWrapper.nullcheck;
 
 /**
  * Автор: dylib_developer
@@ -20,14 +21,14 @@ public class AntiAims extends Module {
 
     @Override
     protected void onEnable() {
-        if (mc.player != null) {
+        if (!nullcheck()) {
             originalPitch = mc.player.getPitch();
         }
     }
 
     @EventHandler
     public void onTick(TickEvent event) {
-        if (mc.player == null) return;
+        if (nullcheck()) return;
 
         mc.player.prevHeadYaw = 180f;
         mc.player.headYaw = 180f;
@@ -40,7 +41,7 @@ public class AntiAims extends Module {
 
     @Override
     protected void onDisable() {
-        if (mc.player != null) {
+        if (!nullcheck()) {
             mc.player.headYaw = mc.player.getYaw();
             mc.player.setPitch(originalPitch);
         }

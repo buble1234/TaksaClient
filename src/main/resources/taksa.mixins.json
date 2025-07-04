@@ -13,12 +13,14 @@
     "input.MixinMouse",
     "minecraft.MixinMinecraftClient",
     "network.ClientPlayNetworkHandlerMixin",
+    "network.ClientConnectionMixin",
+    "render.MixinItemEntityRenderer",
+    "render.MixinInGameOverlayRenderer",
     "render.DebugHudMixin",
     "render.GameRendererMixin",
     "render.InGameHudMixin",
     "render.PostEffectProcessorMixin",
-    "ui.MixinTitleScreen",
-    "ui.MultiplayerScreenMixin"
+    "ui.MixinTitleScreen"
   ],
   "injectors": {
     "defaultRequire": 1

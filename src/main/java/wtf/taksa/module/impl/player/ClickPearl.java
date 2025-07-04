@@ -10,6 +10,7 @@ import wtf.taksa.module.Module;
 import wtf.taksa.module.ModuleRegistry;
 
 import static wtf.taksa.usual.utils.minecraft.ContextWrapper.mc;
+import static wtf.taksa.usual.utils.minecraft.ContextWrapper.nullcheck;
 
 /**
  * Автор: dylib_developer
@@ -24,7 +25,7 @@ public class ClickPearl extends Module {
 
     @EventHandler
     public void onTick(TickEvent event) {
-        if (mc.player == null || mc.interactionManager == null) return;
+        if (nullcheck()) return;
 
         if (previousSlot != -1 && System.currentTimeMillis() - lastThrowTime > 1) {
             mc.player.getInventory().selectedSlot = previousSlot;

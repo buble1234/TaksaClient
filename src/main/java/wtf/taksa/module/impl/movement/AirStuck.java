@@ -7,6 +7,7 @@ import wtf.taksa.module.Module;
 import wtf.taksa.module.ModuleRegistry;
 
 import static wtf.taksa.usual.utils.minecraft.ContextWrapper.mc;
+import static wtf.taksa.usual.utils.minecraft.ContextWrapper.nullcheck;
 
 /**
  * Автор: dylib_developer
@@ -18,7 +19,7 @@ public class AirStuck extends Module {
 
     @EventHandler
     public void onTick(TickEvent event) {
-        if (mc.player == null) return;
+        if (nullcheck()) return;
 
         mc.player.setVelocity(0, 0, 0);
         mc.player.fallDistance = 0;

@@ -8,7 +8,9 @@ import wtf.taksa.module.impl.fight.*;
 import wtf.taksa.module.impl.miscellaneous.*;
 import wtf.taksa.module.impl.movement.*;
 import wtf.taksa.module.impl.player.*;
-import wtf.taksa.module.impl.visuals.AspectRatio;
+import wtf.taksa.module.impl.visuals.CustomTime;
+import wtf.taksa.module.impl.visuals.ItemPhysic;
+import wtf.taksa.module.impl.visuals.NoRender;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -30,19 +32,23 @@ public class ModuleManager {
 
         moduleHolder.register(
                 Sprint.class,
-                WaterSpeed.class,
                 Speed.class,
                 AntiAims.class,
                 Strafe.class,
                 ClickPearl.class,
                 ClickGUI.class,
+                CustomTime.class,
+                ChestStealer.class,
+                ItemPhysic.class,
+                NoRender.class,
                 TriggerBot.class,
                 AutoWind.class,
+                AutoRespawn.class,
                 Spider.class,
+                AutoTotem.class,
                 NoSlow.class,
                 AirStuck.class,
-                AimAssist.class,
-                AspectRatio.class
+                AimAssist.class
         );
         modules.addAll(moduleHolder.getModules());
     }
@@ -65,5 +71,15 @@ public class ModuleManager {
                 ModuleBinding.handle(module, action == 1);
             }
         }
+    }
+
+    public Module getModuleByName(String moduleName) {
+        if (moduleName == null) return null;
+        for (Module module : modules) {
+            if (module.getName() != null && module.getName().equalsIgnoreCase(moduleName)) {
+                return module;
+            }
+        }
+        return null;
     }
 }

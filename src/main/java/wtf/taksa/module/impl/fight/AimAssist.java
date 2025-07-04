@@ -19,6 +19,7 @@ import java.util.Comparator;
 import java.util.stream.StreamSupport;
 
 import static wtf.taksa.usual.utils.minecraft.ContextWrapper.mc;
+import static wtf.taksa.usual.utils.minecraft.ContextWrapper.nullcheck;
 
 /**
  * Автор: NoCap
@@ -44,9 +45,7 @@ public class AimAssist extends Module {
 
     @EventHandler
     public void onTick(TickEvent event) {
-        if (mc.player == null || mc.world == null) {
-            return;
-        }
+        if (nullcheck()) return;
 
         if (onlyOnClick.getValue() && !mc.options.attackKey.isPressed()) {
             return;

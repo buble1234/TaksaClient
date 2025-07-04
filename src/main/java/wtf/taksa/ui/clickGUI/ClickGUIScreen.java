@@ -67,32 +67,32 @@ public class ClickGUIScreen extends Screen {
         );
 
         // юзать билдер везде код будет чище
-        new RectBuilder()
-                .size(100, 50)
-                .radius(new Radius(5, 1, 5, 19))
-                .color(Color.RED)
-                .smoothness(5)
-                .render(context.getMatrices(), 10, 10);
-//        RendererUtils.drawRectangle(context.getMatrices(), 0, 0, width, height, new Radius(0), Theme.BACKGROUND, 1, 1, 0);
-//
-//        if (!categoryPanels.isEmpty()) {
-//            int panelHeight = (categoryPanels.size() * (pH + pSpacing)) - pSpacing + 10;
-//
-//            RendererUtils.drawRectangle(
-//                    context.getMatrices(),
-//                    pX - 5,
-//                    pY - 5,
-//                    pW + 10,
-//                    panelHeight,
-//                    new Radius(6),
-//                    ColorUtils.fromHex("1B1B1B"),
-//                    1, 1, 1
-//            );
-//        }
-//
-//        for (CategoryPanel panel : categoryPanels) {
-//            panel.render(context, mouseX, mouseY, delta);
-//        }
+//        new RectBuilder()
+//                .size(100, 50)
+//                .radius(new Radius(5, 1, 5, 19))
+//                .color(Color.RED)
+//                .smoothness(5)
+//                .render(context.getMatrices(), 10, 10);
+        RendererUtils.drawRectangle(context.getMatrices(), 0, 0, width, height, new Radius(0), Theme.BACKGROUND, 1, 1, 0);
+
+        if (!categoryPanels.isEmpty()) {
+            int panelHeight = (categoryPanels.size() * (pH + pSpacing)) - pSpacing + 10;
+
+            RendererUtils.drawRectangle(
+                    context.getMatrices(),
+                    pX - 5,
+                    pY - 5,
+                    pW + 10,
+                    panelHeight,
+                    new Radius(6),
+                    ColorUtils.fromHex("1B1B1B"),
+                    1, 1, 1
+            );
+        }
+
+        for (CategoryPanel panel : categoryPanels) {
+            panel.render(context, mouseX, mouseY, delta);
+        }
     }
 
     @Override
