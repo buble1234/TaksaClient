@@ -8,8 +8,7 @@ import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-import wtf.taksa.render.font.FontManager;
-import wtf.taksa.render.font.FontRenderer;
+import wtf.taksa.render.builder.KaleidoscopeBuilder;
 
 /**
  * Автор: NoCap
@@ -17,14 +16,15 @@ import wtf.taksa.render.font.FontRenderer;
  */
 public class TitleScreenUI extends Screen {
 
-    private static final Identifier dachshund = Identifier.of("taksa", "textures/gui/background/taksa.png");
+    private static final Identifier SINGLEPLAYER_ICON = Identifier.of("taksa", "textures/gui/singleplayer.png");
+    private static final Identifier MULTIPLAYER_ICON = Identifier.of("taksa", "textures/gui/multiplayer.png");
+    private static final Identifier OPTIONS_ICON = Identifier.of("taksa", "textures/gui/gear.png");
+    private static final Identifier QUIT_ICON = Identifier.of("taksa", "textures/gui/cross.png");
 
     private Button singleplayerButton;
     private Button multiplayerButton;
     private Button optionsButton;
     private Button quitButton;
-
-    private FontRenderer font;
 
     public TitleScreenUI() {
         super(Text.literal("Такса Пес Крутой"));
@@ -37,53 +37,48 @@ public class TitleScreenUI extends Screen {
         int centerX = this.width / 2;
         int centerY = this.height / 2;
 
-        font = FontManager.getTextRenderer();
+        int buttonSize = 40;
+        int buttonSpacing = 15;
 
-        int buttonWidth = 150;
-        int buttonHeight = 20;
-        int buttonSpacing = 5;
+        int totalButtonsWidth = (buttonSize * 4) + (buttonSpacing * 3);
 
-        int totalButtonsHeight = (buttonHeight * 4) + (buttonSpacing * 3);
+        int startX = centerX - totalButtonsWidth / 2;
 
-        int startY = centerY - totalButtonsHeight / 2;
-
-        int buttonX = centerX - buttonWidth / 2;
+        int buttonY = centerY + 60;
 
         singleplayerButton = new Button(
-                buttonX, startY, buttonWidth, buttonHeight,
-                "Singleplayer",
-                () -> client.setScreen(new SelectWorldScreen(this)),
-                font
+                startX, buttonY, buttonSize,
+                SINGLEPLAYER_ICON,
+                () -> client.setScreen(new SelectWorldScreen(this))
         );
 
-        startY += buttonHeight + buttonSpacing;
+        startX += buttonSize + buttonSpacing;
         multiplayerButton = new Button(
-                buttonX, startY, buttonWidth, buttonHeight,
-                "Multiplayer",
-                () -> client.setScreen(new MultiplayerScreen(this)),
-                font
+                startX, buttonY, buttonSize,
+                MULTIPLAYER_ICON,
+                () -> client.setScreen(new MultiplayerScreen(this))
         );
 
-        startY += buttonHeight + buttonSpacing;
+        startX += buttonSize + buttonSpacing;
         optionsButton = new Button(
-                buttonX, startY, buttonWidth, buttonHeight,
-                "Options",
-                () -> client.setScreen(new OptionsScreen(this, client.options)),
-                font
+                startX, buttonY, buttonSize,
+                OPTIONS_ICON,
+                () -> client.setScreen(new OptionsScreen(this, client.options))
         );
 
-        startY += buttonHeight + buttonSpacing;
+        startX += buttonSize + buttonSpacing;
         quitButton = new Button(
-                buttonX, startY, buttonWidth, buttonHeight,
-                "Quit",
-                () -> client.scheduleStop(),
-                font
+                startX, buttonY, buttonSize,
+                QUIT_ICON,
+                () -> client.scheduleStop()
         );
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
-        context.drawTexture(dachshund, 0, 0, this.width, this.height, this.width, this.height, this.width, this.height);
+        new KaleidoscopeBuilder()
+                .size(this.width, this.height)
+                .render(context.getMatrices(), 0, 0);
 
         singleplayerButton.render(context, mouseX, mouseY);
         multiplayerButton.render(context, mouseX, mouseY);

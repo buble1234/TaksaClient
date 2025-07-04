@@ -1,8 +1,8 @@
 package wtf.taksa.ui;
 
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.math.MatrixStack;
-import wtf.taksa.render.font.FontRenderer;
+import net.minecraft.util.Identifier; // Импортируем Identifier для иконок
+import wtf.taksa.render.builder.BorderBuilder;
 
 import java.awt.*;
 
@@ -13,57 +13,44 @@ import java.awt.*;
 public class Button {
     private final int x;
     private final int y;
-    private final int width;
-    private final int height;
-    private final String text;
+    private final int size;
+    private final Identifier icon;
     private final Runnable onClick;
-    private final FontRenderer fontRenderer;
 
-    public Button(int x, int y, int width, int height, String text, Runnable onClick, FontRenderer fontRenderer) {
+    public Button(int x, int y, int size, Identifier icon, Runnable onClick) {
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
-        this.text = text;
+        this.size = size;
+        this.icon = icon;
         this.onClick = onClick;
-        this.fontRenderer = fontRenderer;
     }
 
     public void render(DrawContext context, int mouseX, int mouseY) {
-        Color baseColor = new Color(255, 255, 0);
-        Color hoverColor = new Color(255, 0, 0);
-        Color textColor = Color.BLACK;
+        Color baseColor = new Color(22, 22, 22, 255);
+        Color outColor = new Color(59, 59, 59);
+        Color hoverColor = new Color(122, 122, 122);
 
-        Color currentColor = isMouseOver(mouseX, mouseY) ? hoverColor : baseColor;
+        Color currentColor = isMouseOver(mouseX, mouseY) ? hoverColor : outColor;
 
-        int rc = currentColor.getRGB();
-        context.fill(x, y, x + width, y + height, rc);
+        new BorderBuilder()
+                .size(size, size)
+                .radius(5)
+                .smoothness(1)
+                .thickness(1)
+                .color(baseColor)
+                .outlineColor(currentColor)
+                .render(context.getMatrices(), x, y);
 
-        if (this.text == null || this.text.isEmpty()) {
-            return;
+        if (this.icon != null) {
+            int iconSize = (int) (this.size * 0.6f);
+            int iconX = x + (this.size - iconSize) / 2;
+            int iconY = y + (this.size - iconSize) / 2;
+            context.drawGuiTexture(icon, iconX, iconY, iconSize, iconSize);
         }
-
-        float textWidth = fontRenderer.getStringWidth(this.text);
-
-        float textX = x + (width - textWidth) / 2.0f;
-
-        float textHeight = fontRenderer.getStringHeight(this.text);
-        float textY = y + (height - textHeight) / 2.0f;
-
-        fontRenderer.drawString(
-                new MatrixStack(),
-                this.text,
-                textX,
-                textY,
-                textColor.getRed() / 255f,
-                textColor.getGreen() / 255f,
-                textColor.getBlue() / 255f,
-                1.0f
-        );
     }
 
     public boolean isMouseOver(int mouseX, int mouseY) {
-        return mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height;
+        return mouseX >= x && mouseX <= x + size && mouseY >= y && mouseY <= y + size;
     }
 
     public void onClick() {
