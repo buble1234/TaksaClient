@@ -6,19 +6,20 @@
   "mixins": [
   ],
   "client": [
+    "accessor.MinecraftClientAccessor",
     "accessor.NativeImageAccessor",
     "accessor.PostEffectPassAccessor",
     "chat.ChatInputSuggestorMixin",
     "input.MixinKeyboard",
     "input.MixinMouse",
     "minecraft.MixinMinecraftClient",
-    "network.ClientPlayNetworkHandlerMixin",
     "network.ClientConnectionMixin",
-    "render.MixinItemEntityRenderer",
-    "render.MixinInGameOverlayRenderer",
+    "network.ClientPlayNetworkHandlerMixin",
     "render.DebugHudMixin",
     "render.GameRendererMixin",
     "render.InGameHudMixin",
+    "render.MixinInGameOverlayRenderer",
+    "render.MixinItemEntityRenderer",
     "render.PostEffectProcessorMixin",
     "ui.MixinTitleScreen"
   ],

@@ -304,6 +304,10 @@ public class FontRenderer implements Closeable {
 //		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, prevMag);
     }
 
+    public void drawString(MatrixStack stack, String s, float x, float y, Color color) {
+        drawString(stack, s, x - getStringWidth(s) / 2f, y, color.getRed()/255f, color.getGreen()/255f, color.getBlue()/255f, color.getAlpha()/255f);
+    }
+
     public static void drawClippedStringWithFade(DrawContext context, FontRenderer font, String text, float x, float y, float maxWidth, Color color, Color backgroundColor) {
         float textWidth = font.getStringWidth(text);
 
@@ -341,6 +345,10 @@ public class FontRenderer implements Closeable {
      */
     public void drawCenteredString(MatrixStack stack, String s, float x, float y, float r, float g, float b, float a) {
         drawString(stack, s, x - getStringWidth(s) / 2f, y, r, g, b, a);
+    }
+
+    public void drawCenteredString(MatrixStack stack, String s, float x, float y, Color color) {
+        drawString(stack, s, x - getStringWidth(s) / 2f, y, color.getRed()/255f, color.getGreen()/255f, color.getBlue()/255f, color.getAlpha()/255f);
     }
 
     /**

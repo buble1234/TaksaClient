@@ -11,6 +11,8 @@ import net.minecraft.util.Identifier;
 import wtf.taksa.render.builder.KaleidoscopeBuilder;
 import wtf.taksa.render.builder.UniverseWithinBuilder;
 import wtf.taksa.render.shader.storage.RadarBuilder;
+import wtf.taksa.ui.account.AccountScreenUI;
+import wtf.taksa.ui.button.Button;
 
 /**
  * Автор: NoCap
@@ -61,7 +63,7 @@ public class TitleScreenUI extends Screen {
         int startX = centerX - totalButtonsWidth / 2;
         int buttonY = centerY + 60;
 
-        singleplayerButton = new Button(startX, buttonY, buttonSize, SINGLEPLAYER_ICON, () -> client.setScreen(new SelectWorldScreen(this)));
+        singleplayerButton = new Button(startX, buttonY, buttonSize, SINGLEPLAYER_ICON, () -> client.setScreen(new AccountScreenUI()));
         startX += buttonSize + buttonSpacing;
         multiplayerButton = new Button(startX, buttonY, buttonSize, MULTIPLAYER_ICON, () -> client.setScreen(new MultiplayerScreen(this)));
         startX += buttonSize + buttonSpacing;

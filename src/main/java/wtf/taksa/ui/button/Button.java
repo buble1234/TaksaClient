@@ -1,4 +1,4 @@
-package wtf.taksa.ui;
+package wtf.taksa.ui.button;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier; // Импортируем Identifier для иконок
