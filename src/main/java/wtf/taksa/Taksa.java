@@ -5,6 +5,7 @@ import net.fabricmc.api.ModInitializer;
 import wtf.taksa.core.Core;
 import wtf.taksa.manager.CommandManager;
 import wtf.taksa.manager.ConfigManager;
+import wtf.taksa.manager.FriendManager;
 import wtf.taksa.manager.ModuleManager;
 import wtf.taksa.module.ModuleHolder;
 
@@ -19,6 +20,7 @@ public class Taksa implements ModInitializer {
     private final ModuleManager moduleManager = new ModuleManager();
     private static CommandManager commandManager;
     private static ConfigManager configManager;
+    @Getter private FriendManager friendManager;
     private static boolean configInitialized = false;
 
     Core core = new Core();
@@ -29,6 +31,7 @@ public class Taksa implements ModInitializer {
         instance = this;
 
         commandManager = new CommandManager();
+        friendManager = new FriendManager();
         moduleManager.init();
 
         configManager = new ConfigManager(ModuleHolder.getInstance());
