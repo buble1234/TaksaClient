@@ -1,7 +1,9 @@
 package wtf.taksa.manager;
 
 
+import lombok.Getter;
 import wtf.taksa.command.Command;
+import wtf.taksa.command.impl.FriendCommand;
 import wtf.taksa.command.impl.HelpCommand;
 import wtf.taksa.usual.utils.chat.ChatUtil;
 
@@ -13,12 +15,14 @@ import java.util.List;
  * @author Kenny1337
  * @since 28.06.2025
  */
+@Getter
 public class CommandManager {
     private static final String PREFIX = ".";
     private final List<Command> commands = new ArrayList<>();
 
     public CommandManager() {
         addCommand(new HelpCommand());
+        addCommand(new FriendCommand());
     }
 
     public void addCommand(Command command) {
@@ -47,10 +51,6 @@ public class CommandManager {
 
         ChatUtil.clientError("Команда не найдена: " + commandName);
         return true;
-    }
-
-    public List<Command> getCommands() {
-        return commands;
     }
 
     public static String getPrefix() {
