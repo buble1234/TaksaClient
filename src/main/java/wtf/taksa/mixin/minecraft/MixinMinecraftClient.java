@@ -6,6 +6,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import wtf.taksa.core.Core;
+import wtf.taksa.core.events.minecraft.EventSync;
 import wtf.taksa.core.events.minecraft.TickEvent;
 
 /**
@@ -18,5 +19,6 @@ public class MixinMinecraftClient {
     @Inject(at = @At("HEAD"), method = "tick")
     private void onTick(CallbackInfo ci) {
         Core.EVENT_BUS.post(new TickEvent());
+        Core.EVENT_BUS.post(new EventSync());
     }
 }

@@ -64,10 +64,18 @@ public class CategoryPanel {
         boolean isHovered = isMouseOver(mouseX, mouseY, x, y, width, height);
         boolean isActive = parent.isPanelActive(this);
 
-        Color backgroundColor = isActive ? Theme.CATEGORY_ACTIVE : isHovered ? ColorUtils.fromHex("727272") : ColorUtils.fromHex("2B2B2B");
-        Color textColor = isActive ? Theme.TEXT_DARK : Theme.TEXT_LIGHT;
+        Color backgroundColor;
+        Color textColor;
 
-        RendererUtils.drawRectangle(context.getMatrices(), x, y, width, height, new Radius(6), backgroundColor, 1f, 1f, 1f);
+        if (isActive) {
+            backgroundColor = ColorUtils.fromHex("2B2B2B");
+            textColor = Theme.TEXT_LIGHT;
+            RendererUtils.drawBorder(context.getMatrices(), x, y, width, height, new Radius(6), 1f, backgroundColor, Theme.CATEGORY_ACTIVE);
+        } else {
+            backgroundColor = isHovered ? ColorUtils.fromHex("727272") : ColorUtils.fromHex("2B2B2B");
+            textColor = Theme.TEXT_LIGHT;
+            RendererUtils.drawRectangle(context.getMatrices(), x, y, width, height, new Radius(6), backgroundColor, 1f, 1f, 1f);
+        }
 
         float textWidth = width - 10;
         FontRenderer.drawClippedStringWithFade(context, font, category.getName(),
