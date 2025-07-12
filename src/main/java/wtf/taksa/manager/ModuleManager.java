@@ -48,7 +48,9 @@ public class ModuleManager {
                 AutoTotem.class,
                 NoSlow.class,
                 AirStuck.class,
-                AimAssist.class
+                AimAssist.class,
+                WaterSpeed.class,
+                Hitbox.class
         );
         modules.addAll(moduleHolder.getModules());
     }

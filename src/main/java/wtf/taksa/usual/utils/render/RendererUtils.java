@@ -21,6 +21,7 @@ import wtf.taksa.Taksa;
 import wtf.taksa.mixin.accessor.NativeImageAccessor;
 import wtf.taksa.render.shader.storage.BlurShader;
 import wtf.taksa.render.shader.storage.RectangleShader;
+import wtf.taksa.render.shader.storage.BorderShader;
 import wtf.taksa.usual.utils.math.Radius;
 
 import java.awt.*;
@@ -234,6 +235,14 @@ public class RendererUtils {
         BufferBuilder bufferBuilder = preShaderDraw(matrices, x, y, width, height);
         BlurShader shader = BlurShader.INSTANCE;
         shader.setParameters(width, height, cornerRadius, blurRadius, tintColor, brightness, smoothness);
+        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
+        endRender();
+    }
+
+    public static void drawBorder(MatrixStack matrices, float x, float y, float width, float height, Radius radius, float thickness, Color fillColor, Color outlineColor) {
+        BufferBuilder bufferBuilder = preShaderDraw(matrices, x, y, width, height);
+        BorderShader shader = BorderShader.INSTANCE;
+        shader.setParameters(width, height, radius, thickness, 1.5F, fillColor, outlineColor);
         BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
         endRender();
     }

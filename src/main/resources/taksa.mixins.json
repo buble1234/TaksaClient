@@ -10,6 +10,7 @@
     "accessor.NativeImageAccessor",
     "accessor.PostEffectPassAccessor",
     "chat.ChatInputSuggestorMixin",
+    "entity.MixinEntity",
     "input.MixinKeyboard",
     "input.MixinMouse",
     "minecraft.MixinMinecraftClient",
@@ -21,7 +22,8 @@
     "render.MixinInGameOverlayRenderer",
     "render.MixinItemEntityRenderer",
     "render.PostEffectProcessorMixin",
-    "ui.MixinTitleScreen"
+    "ui.MixinTitleScreen",
+    "player.MixinPlayerEntity"
   ],
   "injectors": {
     "defaultRequire": 1
