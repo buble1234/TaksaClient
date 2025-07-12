@@ -54,4 +54,16 @@ public abstract class GameRendererMixin {
             }
         }
     }
+
+
+    // Автор: NoCap
+    @Inject(method = "loadPrograms", at = @At(value = "RETURN"))
+    private void loadSatinProgramsRenderLibraryByNoCap(ResourceFactory factory, CallbackInfo ci) {
+        no.cap.engine.shaders.ShaderManager manager = no.cap.engine.shaders.ShaderManager.INSTANCE;
+        try {
+            manager.loadOrReload(factory);
+        } catch (Exception e) {
+            System.err.println("Failed to reload shaders: " + e.getMessage());
+        }
+    }
 }

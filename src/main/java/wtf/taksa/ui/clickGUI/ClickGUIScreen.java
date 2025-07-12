@@ -3,6 +3,8 @@ package wtf.taksa.ui.clickGUI;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
+import no.cap.engine.render.builder.TextBuilder;
+import no.cap.engine.render.msdf.FontType;
 import wtf.taksa.module.Category;
 import wtf.taksa.module.Module;
 import wtf.taksa.module.ModuleBinding;
@@ -73,7 +75,7 @@ public class ClickGUIScreen extends Screen {
 //                .color(Color.RED)
 //                .smoothness(5)
 //                .render(context.getMatrices(), 10, 10);
-        RendererUtils.drawRectangle(context.getMatrices(), 0, 0, width, height, new Radius(0), Theme.BACKGROUND, 1, 1, 0);
+        //RendererUtils.drawRectangle(context.getMatrices(), 0, 0, width, height, new Radius(0), Theme.BACKGROUND, 1, 1, 0);
 
         if (!categoryPanels.isEmpty()) {
             int panelHeight = (categoryPanels.size() * (pH + pSpacing)) - pSpacing + 10;
@@ -88,7 +90,18 @@ public class ClickGUIScreen extends Screen {
                     ColorUtils.fromHex("1B1B1B"),
                     1, 1, 1
             );
+
         }
+
+        new TextBuilder()
+                .font(FontType.sf_regular.get())
+                .text("dasdasdas")
+                .size(55)
+                .smoothness(1)
+                .color(new Color(255, 255, 255))
+                .outlineColor(new Color(0, 0, 0))
+                .outlineThickness(0.3f)
+                .render(context.getMatrices(), 500, 151);
 
         for (CategoryPanel panel : categoryPanels) {
             panel.render(context, mouseX, mouseY, delta);
