@@ -4,26 +4,11 @@
   "package": "wtf.taksa.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "entity.MixinEntity"
   ],
   "client": [
-    "accessor.MinecraftClientAccessor",
-    "accessor.NativeImageAccessor",
-    "accessor.PostEffectPassAccessor",
-    "chat.ChatInputSuggestorMixin",
-    "entity.MixinEntity",
-    "input.MixinKeyboard",
-    "input.MixinMouse",
-    "minecraft.MixinMinecraftClient",
-    "network.ClientConnectionMixin",
-    "network.ClientPlayNetworkHandlerMixin",
-    "render.DebugHudMixin",
-    "render.GameRendererMixin",
-    "render.InGameHudMixin",
-    "render.MixinInGameOverlayRenderer",
-    "render.MixinItemEntityRenderer",
-    "render.PostEffectProcessorMixin",
-    "ui.MixinTitleScreen",
-    "player.MixinPlayerEntity"
+    "client.MixinClientPlayerEntity",
+    "client.MixinMinecraftClient"
   ],
   "injectors": {
     "defaultRequire": 1
