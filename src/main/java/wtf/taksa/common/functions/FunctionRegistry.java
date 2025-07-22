@@ -16,4 +16,8 @@ public @interface FunctionRegistry {
     String name();
 
     String description() default "Описание отсутствует.";
+
+    FunctionCategory category();
+
+    int bind() default -1;
 }

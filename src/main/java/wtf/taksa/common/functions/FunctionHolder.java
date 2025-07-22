@@ -2,6 +2,7 @@ package wtf.taksa.common.functions;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Автор: NoCap
@@ -29,6 +30,12 @@ public class FunctionHolder {
 
     public List<Function> getFunctions() {
         return List.copyOf(functions);
+    }
+
+    public List<Function> getFunctions(FunctionCategory category) {
+        return functions.stream()
+                .filter(function -> function.getCategory() == category)
+                .collect(Collectors.toList());
     }
 
     @SuppressWarnings("unchecked")

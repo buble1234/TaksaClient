@@ -8,7 +8,11 @@
   ],
   "client": [
     "client.MixinClientPlayerEntity",
-    "client.MixinMinecraftClient"
+    "client.MixinMinecraftClient",
+    "input.MixinKeyboard",
+    "input.MixinMouse",
+    "render.MixinGameRenderer",
+    "render.MixinInGameHud"
   ],
   "injectors": {
     "defaultRequire": 1

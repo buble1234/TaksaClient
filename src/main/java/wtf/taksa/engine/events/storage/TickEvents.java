@@ -1,6 +1,6 @@
 package wtf.taksa.engine.events.storage;
 
-import wtf.taksa.engine.events.Event;
+import wtf.taksa.engine.events.controllers.Event;
 
 /**
  * Автор: NoCap
