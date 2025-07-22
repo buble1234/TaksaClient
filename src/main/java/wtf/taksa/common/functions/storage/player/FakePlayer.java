@@ -12,6 +12,7 @@ import java.util.UUID;
 /**
  * Автор: Norendov
  * Дата создания: 22.07.2025
+ * For Taksa
  */
 
 @FunctionRegistry(name = "Fake Player", category = FunctionCategory.PLAYER, bind = 0)

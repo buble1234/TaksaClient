@@ -9,6 +9,7 @@ import wtf.taksa.engine.events.storage.TickEvents;
 /**
  * Автор: Norendov
  * Дата создания: 22.07.2025
+ * For Taksa
  */
 
 @FunctionRegistry(name = "Sprint", category = FunctionCategory.MOVE)

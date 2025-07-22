@@ -29,6 +29,8 @@ public class FunctionManager {
         System.out.println("Инициализация менеджера функций...");
         functionHolder.register(
 
+                // Лучше стало
+
                 // COMBAT
                 HitBox.class,
 

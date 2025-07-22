@@ -4,8 +4,8 @@
   "package": "wtf.taksa.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "acess.LivingEntityAccess",
-    "entity.MixinEntity"
+    "entity.MixinEntity",
+    "acess.LivingEntityAccess"
   ],
   "client": [
     "client.MixinClientPlayerEntity",

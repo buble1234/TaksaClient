@@ -4,6 +4,12 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderTickCounter;
 import wtf.taksa.engine.events.controllers.Event;
 
+/**
+ * Автор: Norendov
+ * Дата создания: 22.07.2025
+ * For Taksa
+ */
+
 public class Render2DEvent extends Event {
     private final DrawContext drawContext;
     private final RenderTickCounter renderTickCounter;

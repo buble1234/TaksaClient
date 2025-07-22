@@ -10,6 +10,7 @@ import static net.minecraft.entity.effect.StatusEffects.NIGHT_VISION;
 /**
  * Автор: Norendov
  * Дата создания: 22.07.2025
+ * For Taksa
  */
 
 @FunctionRegistry(name = "Full Bright", category = FunctionCategory.VISUAL)

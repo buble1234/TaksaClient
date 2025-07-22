@@ -11,6 +11,7 @@ import wtf.taksa.mixin.acess.LivingEntityAccess;
 /**
  * Автор: Norendov
  * Дата создания: 22.07.2025
+ * For Taksa
  */
 
 @FunctionRegistry(name = "Jump Delay", category = FunctionCategory.PLAYER)
