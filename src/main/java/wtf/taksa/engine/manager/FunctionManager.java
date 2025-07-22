@@ -4,6 +4,14 @@ import wtf.taksa.common.functions.Function;
 import wtf.taksa.common.functions.FunctionBinding;
 import wtf.taksa.common.functions.FunctionHolder;
 import wtf.taksa.common.functions.storage.TestFunction;
+import wtf.taksa.common.functions.storage.combat.HitBox;
+import wtf.taksa.common.functions.storage.misc.TimeChanger;
+import wtf.taksa.common.functions.storage.movement.AutoSprint;
+import wtf.taksa.common.functions.storage.movement.InvMove;
+import wtf.taksa.common.functions.storage.player.AutoRespawn;
+import wtf.taksa.common.functions.storage.player.FakePlayer;
+import wtf.taksa.common.functions.storage.player.JumpDelay;
+import wtf.taksa.common.functions.storage.render.FullBright;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -20,7 +28,25 @@ public class FunctionManager {
     public void register() {
         System.out.println("Инициализация менеджера функций...");
         functionHolder.register(
-                TestFunction.class
+
+                // COMBAT
+                HitBox.class,
+
+                // MOVEMENT
+                InvMove.class,
+                AutoSprint.class,
+
+                // RENDER
+                FullBright.class,
+                TestFunction.class,
+
+                // PLAYER
+                AutoRespawn.class,
+                JumpDelay.class,
+                FakePlayer.class,
+
+                // MISC
+                TimeChanger.class
         );
         functions.addAll(functionHolder.getFunctions());
         System.out.println("Инициализация завершена.");
