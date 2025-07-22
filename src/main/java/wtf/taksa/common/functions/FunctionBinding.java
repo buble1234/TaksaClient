@@ -5,8 +5,8 @@ package wtf.taksa.common.functions;
  * Дата создания: 18.07.2025
  */
 public enum FunctionBinding {
-    TOGGLE("Переключить"),
-    HOLD("Удерживать");
+    TOGGLE("TOGGLE"),
+    HOLD("HOLD");
 
     private final String displayName;
 

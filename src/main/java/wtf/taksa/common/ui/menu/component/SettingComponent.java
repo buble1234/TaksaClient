@@ -1,4 +1,4 @@
-package wtf.taksa.common.ui.menu;
+package wtf.taksa.common.ui.menu.component;
 
 import wtf.taksa.common.functions.settings.Setting;
 

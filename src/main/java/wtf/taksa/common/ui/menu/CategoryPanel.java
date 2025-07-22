@@ -4,6 +4,7 @@ import wtf.taksa.common.functions.Function;
 import wtf.taksa.common.functions.FunctionCategory;
 import wtf.taksa.common.render.builders.Builder;
 import wtf.taksa.common.render.msdf.MsdfFont;
+import wtf.taksa.common.ui.menu.component.ModuleButtonComponent;
 import wtf.taksa.engine.Engine;
 import wtf.taksa.common.other.TextAlign;
 import wtf.taksa.common.render.msdf.FontType;
@@ -12,9 +13,9 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryPane {
+public class CategoryPanel {
     private final FunctionCategory category;
-    private final List<ModuleButton> moduleButtons = new ArrayList<>();
+    private final List<ModuleButtonComponent> moduleButtons = new ArrayList<>();
     private float x, y, width, height;
     private boolean extended = true;
 
@@ -23,7 +24,7 @@ public class CategoryPane {
     private static final float PADDING = 6; // Увеличены отступы
     private static final float PANEL_WIDTH = 120; // Фиксированная ширина панели
 
-    public CategoryPane(FunctionCategory category, float x, float y) {
+    public CategoryPanel(FunctionCategory category, float x, float y) {
         this.category = category;
         this.x = x;
         this.y = y;
@@ -31,7 +32,7 @@ public class CategoryPane {
 
         List<Function> functionsInCategory = Engine.functionManager.getFunctionHolder().getFunctions(category);
         for (Function function : functionsInCategory) {
-            moduleButtons.add(new ModuleButton(function, this.x + PADDING, this.y, this.width - PADDING * 2, MODULE_HEIGHT));
+            moduleButtons.add(new ModuleButtonComponent(function, this.x + PADDING, this.y, this.width - PADDING * 2, MODULE_HEIGHT));
         }
         updateHeight();
     }
@@ -66,7 +67,7 @@ public class CategoryPane {
 
         if (extended) {
             float currentY = y + HEADER_HEIGHT + PADDING;
-            for (ModuleButton button : moduleButtons) {
+            for (ModuleButtonComponent button : moduleButtons) {
                 button.setX(this.x + PADDING);
                 button.setY(currentY);
                 button.draw(mouseX, mouseY, partialTicks);
@@ -86,7 +87,7 @@ public class CategoryPane {
         }
 
         if (extended) {
-            for (ModuleButton button : moduleButtons) {
+            for (ModuleButtonComponent button : moduleButtons) {
                 button.mouseClicked(mouseX, mouseY, mouseButton);
             }
         }
@@ -94,7 +95,7 @@ public class CategoryPane {
 
     public void mouseReleased(float mouseX, float mouseY, int state) {
         if (extended) {
-            for (ModuleButton button : moduleButtons) {
+            for (ModuleButtonComponent button : moduleButtons) {
                 button.mouseReleased(mouseX, mouseY, state);
             }
         }
@@ -102,7 +103,7 @@ public class CategoryPane {
 
     public void keyTyped(char typedChar, int keyCode) {
         if (extended) {
-            for (ModuleButton button : moduleButtons) {
+            for (ModuleButtonComponent button : moduleButtons) {
                 button.keyTyped(typedChar, keyCode);
             }
         }
@@ -111,7 +112,7 @@ public class CategoryPane {
     private void updateHeight() {
         if (extended) {
             float totalModuleHeight = 0;
-            for (ModuleButton button : moduleButtons) {
+            for (ModuleButtonComponent button : moduleButtons) {
                 totalModuleHeight += button.getTotalHeight();
             }
             this.height = HEADER_HEIGHT + totalModuleHeight + PADDING;

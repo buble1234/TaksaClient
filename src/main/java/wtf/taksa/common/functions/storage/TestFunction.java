@@ -5,6 +5,7 @@ import wtf.taksa.common.functions.Function;
 import wtf.taksa.common.functions.FunctionCategory;
 import wtf.taksa.common.functions.FunctionRegistry;
 import wtf.taksa.common.functions.settings.BooleanSetting;
+import wtf.taksa.common.functions.settings.SliderSetting;
 import wtf.taksa.common.ui.menu.ClickGuiScreen;
 import wtf.taksa.engine.events.controllers.Listen;
 import wtf.taksa.engine.events.storage.TickEvents;
@@ -17,14 +18,16 @@ import wtf.taksa.engine.events.storage.TickEvents;
 public class TestFunction extends Function {
 
 
-    public BooleanSetting booleas = new BooleanSetting("dsa", true);
+    public BooleanSetting check = new BooleanSetting("Булен", true);
+    public SliderSetting slider = new SliderSetting("Слайдер", 1.0, 0.1, 5.0, 0.1);
     @Listen
     public void onTick(TickEvents.Tick event) {
         if (mc.player == null || mc.world == null) return;
     }
 
     public TestFunction() {
-        addSetting(booleas);
+        addSetting(check);
+        addSetting(slider);
     }
     @Override
     protected void onEnable() {

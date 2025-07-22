@@ -1,10 +1,9 @@
-package wtf.taksa.common.ui.menu;
+package wtf.taksa.common.ui.menu.component;
 
 import wtf.taksa.common.functions.settings.BooleanSetting;
 import wtf.taksa.common.render.builders.Builder;
 import wtf.taksa.common.render.msdf.MsdfFont;
 import wtf.taksa.common.other.TextAlign;
-import wtf.taksa.common.functions.settings.Setting;
 import wtf.taksa.common.render.msdf.FontType;
 
 import java.awt.Color;

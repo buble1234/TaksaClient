@@ -1,8 +1,9 @@
-package wtf.taksa.common.ui.menu;
+package wtf.taksa.common.ui.menu.component;
 
 import wtf.taksa.common.functions.Function;
 import wtf.taksa.common.functions.settings.BooleanSetting;
 import wtf.taksa.common.functions.settings.Setting;
+import wtf.taksa.common.functions.settings.SliderSetting;
 import wtf.taksa.common.render.builders.Builder;
 import wtf.taksa.common.render.msdf.MsdfFont;
 import wtf.taksa.common.other.TextAlign;
@@ -12,7 +13,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModuleButton {
+public class ModuleButtonComponent {
     private final Function function;
     private float x, y, width, height;
     private boolean extended = false;
@@ -22,14 +23,13 @@ public class ModuleButton {
     private static final float SETTING_HEIGHT = 20;
     private static final float PADDING = 6;
 
-    public ModuleButton(Function function, float x, float y, float width, float height) {
+    public ModuleButtonComponent(Function function, float x, float y, float width, float height) {
         this.function = function;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
 
-        // Добавляем компонент для настройки бинда
         settingComponents.add(new KeybindSettingComponent(new Setting<Integer>("Bind", function.getBind()) {
             @Override
             public Integer getValue() {
@@ -46,8 +46,9 @@ public class ModuleButton {
         for (Setting<?> setting : function.getSettings()) {
             if (setting instanceof BooleanSetting) {
                 settingComponents.add(new BooleanSettingComponent((BooleanSetting) setting, this.x, this.y, this.width, SETTING_HEIGHT));
+            } else if (setting instanceof SliderSetting) {
+                settingComponents.add(new SliderSettingComponent((SliderSetting) setting, this.x, this.y, this.width, SETTING_HEIGHT));
             }
-            // Добавьте сюда другие типы настроек
         }
     }
 

@@ -4,14 +4,13 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import wtf.taksa.common.functions.FunctionCategory;
-import wtf.taksa.engine.Engine;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClickGuiScreen extends Screen {
 
-    private final List<CategoryPane> categoryPanes = new ArrayList<>();
+    private final List<CategoryPanel> categoryPanes = new ArrayList<>();
 
     public ClickGuiScreen() {
         super(Text.of("Click GUI"));
@@ -25,7 +24,7 @@ public class ClickGuiScreen extends Screen {
         float xOffset = 20; // Начальный отступ слева
         float yOffset = 20; // Начальный отступ сверху
         for (FunctionCategory category : FunctionCategory.values()) {
-            CategoryPane pane = new CategoryPane(category, xOffset, yOffset);
+            CategoryPanel pane = new CategoryPanel(category, xOffset, yOffset);
             categoryPanes.add(pane);
             xOffset += pane.getWidth() + 15; // Расстояние между панелями
         }
@@ -36,14 +35,14 @@ public class ClickGuiScreen extends Screen {
         // Рендерим фон затемнения или размытия
         this.renderBackground(graphics, mouseX, mouseY, partialTicks); // Используем стандартный фон Minecraft Screen
 
-        for (CategoryPane pane : categoryPanes) {
+        for (CategoryPanel pane : categoryPanes) {
             pane.draw(mouseX, mouseY, partialTicks);
         }
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
-        for (CategoryPane pane : categoryPanes) {
+        for (CategoryPanel pane : categoryPanes) {
             pane.mouseClicked((float) mouseX, (float) mouseY, mouseButton);
         }
         return super.mouseClicked(mouseX, mouseY, mouseButton);
@@ -51,7 +50,7 @@ public class ClickGuiScreen extends Screen {
 
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int state) {
-        for (CategoryPane pane : categoryPanes) {
+        for (CategoryPanel pane : categoryPanes) {
             pane.mouseReleased((float) mouseX, (float) mouseY, state);
         }
         return super.mouseReleased(mouseX, mouseY, state);
@@ -59,7 +58,7 @@ public class ClickGuiScreen extends Screen {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        for (CategoryPane pane : categoryPanes) {
+        for (CategoryPanel pane : categoryPanes) {
             pane.keyTyped((char) keyCode, keyCode);
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
