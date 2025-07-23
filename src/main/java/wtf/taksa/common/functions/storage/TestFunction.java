@@ -6,7 +6,7 @@ import wtf.taksa.common.functions.FunctionCategory;
 import wtf.taksa.common.functions.FunctionRegistry;
 import wtf.taksa.common.functions.settings.BooleanSetting;
 import wtf.taksa.common.functions.settings.SliderSetting;
-import wtf.taksa.common.ui.menu.ClickGuiScreen;
+import wtf.taksa.common.ui.clickgui.ClickGuiScreen;
 import wtf.taksa.engine.events.controllers.Listen;
 import wtf.taksa.engine.events.storage.TickEvents;
 
