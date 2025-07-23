@@ -17,7 +17,7 @@ public @interface FunctionRegistry {
 
     String description() default "Описание отсутствует.";
 
-    FunctionCategory category();
+    FunctionCategory category() default FunctionCategory.COMBAT;
 
     int bind() default -1;
 }

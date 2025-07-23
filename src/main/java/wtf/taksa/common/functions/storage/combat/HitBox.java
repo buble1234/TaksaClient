@@ -1,13 +1,11 @@
 package wtf.taksa.common.functions.storage.combat;
 
-import com.google.common.eventbus.Subscribe;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Box;
-import org.lwjgl.glfw.GLFW;
 import wtf.taksa.common.functions.Function;
 import wtf.taksa.common.functions.FunctionCategory;
 import wtf.taksa.common.functions.FunctionRegistry;
-import wtf.taksa.common.functions.settings.SliderSetting;
+import wtf.taksa.common.functions.settings.impl.SliderSetting;
 import wtf.taksa.engine.events.controllers.Listen;
 import wtf.taksa.engine.events.storage.TickEvents;
 
@@ -17,7 +15,7 @@ import wtf.taksa.engine.events.storage.TickEvents;
  * For Taksa
  */
 
-@FunctionRegistry(name = "Hit Box", category = FunctionCategory.COMBAT, bind = 0)
+@FunctionRegistry(name = "Hit Box", category = FunctionCategory.COMBAT)
 public class HitBox extends Function {
 
     public SliderSetting size = new SliderSetting("Size", 0.2f, 0.1, 2.0, 0.01f);
@@ -44,5 +42,4 @@ public class HitBox extends Function {
             ));
         }
     }
-
 }

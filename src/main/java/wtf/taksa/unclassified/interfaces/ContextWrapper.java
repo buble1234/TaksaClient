@@ -11,5 +11,4 @@ import net.minecraft.client.util.Window;
 public interface ContextWrapper {
     MinecraftClient mc = MinecraftClient.getInstance();
     Window window = mc.getWindow();
-    Tessellator tessellator = Tessellator.getInstance();
 }

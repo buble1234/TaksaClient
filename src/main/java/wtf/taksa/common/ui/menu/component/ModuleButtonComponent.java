@@ -1,9 +1,10 @@
 package wtf.taksa.common.ui.menu.component;
 
+import lombok.Setter;
 import wtf.taksa.common.functions.Function;
-import wtf.taksa.common.functions.settings.BooleanSetting;
-import wtf.taksa.common.functions.settings.Setting;
-import wtf.taksa.common.functions.settings.SliderSetting;
+import wtf.taksa.common.functions.settings.impl.BooleanSetting;
+import wtf.taksa.common.functions.settings.api.Setting;
+import wtf.taksa.common.functions.settings.impl.SliderSetting;
 import wtf.taksa.common.render.builders.Builder;
 import wtf.taksa.common.render.msdf.MsdfFont;
 import wtf.taksa.common.other.TextAlign;
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class ModuleButtonComponent {
     private final Function function;
+    @Setter
     private float x, y, width, height;
     private boolean extended = false;
     private final List<SettingComponent<?>> settingComponents = new ArrayList<>();
@@ -72,12 +74,11 @@ public class ModuleButtonComponent {
                 .build()
                 .render(x + 8, y + BUTTON_HEIGHT / 2 - 7);
 
-        // Отображаем привязку клавиши справа от названия модуля
         Builder.text()
                 .font(font)
-                .text(function.getKeyName()) // Используем новый метод getKeyName
+                .text(function.getKeyName())
                 .size(14)
-                .color(new Color(150, 150, 150).getRGB()) // Серый цвет для бинда
+                .color(new Color(150, 150, 150).getRGB())
                 .align(TextAlign.RIGHT)
                 .build()
                 .render(x + width - 8, y + BUTTON_HEIGHT / 2 - 7);
@@ -89,7 +90,7 @@ public class ModuleButtonComponent {
                 settingComponent.setX(this.x);
                 settingComponent.setY(currentY);
                 settingComponent.draw(mouseX, mouseY, partialTicks);
-                currentY += SETTING_HEIGHT + PADDING; // Assuming all settings have the same height for simplicity
+                currentY += SETTING_HEIGHT + PADDING;
             }
         }
     }
@@ -124,14 +125,6 @@ public class ModuleButtonComponent {
                 settingComponent.keyTyped(typedChar, keyCode);
             }
         }
-    }
-
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    public void setY(float y) {
-        this.y = y;
     }
 
     public float getTotalHeight() {

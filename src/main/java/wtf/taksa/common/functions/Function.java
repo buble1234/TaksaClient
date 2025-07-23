@@ -1,6 +1,8 @@
 package wtf.taksa.common.functions;
 
-import wtf.taksa.common.functions.settings.Setting;
+import lombok.Getter;
+import lombok.Setter;
+import wtf.taksa.common.functions.settings.api.Setting;
 import wtf.taksa.engine.Engine;
 import wtf.taksa.unclassified.interfaces.ContextWrapper;
 import org.lwjgl.glfw.GLFW;
@@ -12,6 +14,9 @@ import java.util.List;
  * Автор: NoCap
  * Дата создания: 17.07.2025
  */
+
+@Getter
+@Setter
 public abstract class Function implements ContextWrapper {
 
     private final FunctionRegistry registry;
@@ -60,51 +65,16 @@ public abstract class Function implements ContextWrapper {
         }
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public FunctionCategory getCategory() {
-        return category;
-    }
-
-    public int getBind() {
-        return bind;
-    }
-
-    public void setBind(int bind) {
-        this.bind = bind;
-    }
-
-    public FunctionBinding getBinding() {
-        return binding;
-    }
-
-    public void setBinding(FunctionBinding binding) {
-        this.binding = binding;
-    }
-
     protected void addSetting(Setting<?> setting) {
         this.settings.add(setting);
     }
 
-    public List<Setting<?>> getSettings() {
-        return settings;
+    protected void addSettings(Setting<?>... setting) {
+        settings.addAll(List.of(setting));
     }
 
     public String getKeyName() {
-        if (bind == 0) {
-            return "NONE";
-        }
-        String keyName = GLFW.glfwGetKeyName(bind, 0);
-        return keyName != null ? keyName.toUpperCase() : "UNKNOWN (" + bind + ")";
+        String keyName = Engine.keyStorage.get(bind);
+        return keyName != null ? keyName.toUpperCase() : " ";
     }
 }

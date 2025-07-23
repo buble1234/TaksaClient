@@ -4,14 +4,18 @@
   "package": "wtf.taksa.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "access.LivingEntityAccess",
     "entity.MixinEntity",
-    "acess.LivingEntityAccess"
+    "entity.MixinLivingEntity",
+    "entity.MixinPlayerEntity",
+    "network.MixinClientConnection"
   ],
   "client": [
     "client.MixinClientPlayerEntity",
     "client.MixinMinecraftClient",
     "input.MixinKeyboard",
     "input.MixinMouse",
+    "network.MixinClientBrandRetriever",
     "render.MixinGameRenderer",
     "render.MixinInGameHud"
   ],

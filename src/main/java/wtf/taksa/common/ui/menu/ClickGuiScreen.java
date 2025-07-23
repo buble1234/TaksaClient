@@ -20,20 +20,18 @@ public class ClickGuiScreen extends Screen {
     protected void init() {
         super.init();
 
-        // Инициализация панелей для каждой категории с автоматическим позиционированием
-        float xOffset = 20; // Начальный отступ слева
-        float yOffset = 20; // Начальный отступ сверху
+        float xOffset = 20;
+        float yOffset = 20;
         for (FunctionCategory category : FunctionCategory.values()) {
             CategoryPanel pane = new CategoryPanel(category, xOffset, yOffset);
             categoryPanes.add(pane);
-            xOffset += pane.getWidth() + 15; // Расстояние между панелями
+            xOffset += pane.getWidth() + 15;
         }
     }
 
     @Override
     public void render(DrawContext graphics, int mouseX, int mouseY, float partialTicks) {
-        // Рендерим фон затемнения или размытия
-        this.renderBackground(graphics, mouseX, mouseY, partialTicks); // Используем стандартный фон Minecraft Screen
+        this.renderBackground(graphics, mouseX, mouseY, partialTicks);
 
         for (CategoryPanel pane : categoryPanes) {
             pane.draw(mouseX, mouseY, partialTicks);
@@ -66,12 +64,11 @@ public class ClickGuiScreen extends Screen {
 
     @Override
     public boolean charTyped(char codePoint, int modifiers) {
-        // For text input, you would pass codePoint. For general key presses, keyPressed is often sufficient.
         return super.charTyped(codePoint, modifiers);
     }
 
     @Override
     public boolean shouldPause() {
-        return false; // GUI не будет ставить игру на паузу
+        return false;
     }
 }

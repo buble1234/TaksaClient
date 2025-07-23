@@ -36,5 +36,4 @@ public class InvMove extends Function {
             }
         }
     }
-
 }

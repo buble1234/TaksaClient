@@ -13,7 +13,7 @@ import static net.minecraft.entity.effect.StatusEffects.NIGHT_VISION;
  * For Taksa
  */
 
-@FunctionRegistry(name = "Full Bright", category = FunctionCategory.VISUAL)
+@FunctionRegistry(name = "FullBright", category = FunctionCategory.RENDER)
 public class FullBright extends Function {
 
     @Override
@@ -27,5 +27,4 @@ public class FullBright extends Function {
         if (mc.player == null) return;
         mc.player.removeStatusEffect(NIGHT_VISION);
     }
-
 }

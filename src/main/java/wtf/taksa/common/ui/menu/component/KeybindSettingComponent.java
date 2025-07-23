@@ -1,7 +1,8 @@
 package wtf.taksa.common.ui.menu.component;
 
+import lombok.Setter;
 import wtf.taksa.common.functions.FunctionBinding;
-import wtf.taksa.common.functions.settings.Setting;
+import wtf.taksa.common.functions.settings.api.Setting;
 import wtf.taksa.common.render.builders.Builder;
 import wtf.taksa.common.render.msdf.MsdfFont;
 import wtf.taksa.common.other.TextAlign;
@@ -15,6 +16,7 @@ public class KeybindSettingComponent extends SettingComponent<Integer> {
     private FunctionBinding bindingMode;
     private boolean listeningForBind = false;
 
+    @Setter
     private float x, y, width, height;
 
     public KeybindSettingComponent(Setting<Integer> setting, FunctionBinding initialBindingMode, float x, float y, float width, float height) {
@@ -108,14 +110,6 @@ public class KeybindSettingComponent extends SettingComponent<Integer> {
             listeningForBind = false;
             setting.setValue(bind);
         }
-    }
-
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    public void setY(float y) {
-        this.y = y;
     }
 
     private boolean isHovered(float mouseX, float mouseY) {

@@ -1,8 +1,7 @@
 package wtf.taksa.common.ui.menu.component;
 
-import wtf.taksa.common.functions.settings.Setting;
+import wtf.taksa.common.functions.settings.api.Setting;
 
-// Базовый класс для всех компонентов настроек
 public abstract class SettingComponent<T> {
     protected final Setting<T> setting;
 

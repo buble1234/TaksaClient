@@ -1,6 +1,6 @@
 package wtf.taksa.common.ui.menu.component;
 
-import wtf.taksa.common.functions.settings.SliderSetting;
+import wtf.taksa.common.functions.settings.impl.SliderSetting;
 import wtf.taksa.common.render.builders.Builder;
 import wtf.taksa.common.render.msdf.MsdfFont;
 import wtf.taksa.common.other.TextAlign;

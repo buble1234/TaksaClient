@@ -17,7 +17,8 @@ public class AutoSprint extends Function {
 
     @Listen
     public void onTick(TickEvents.Tick tickEvents) {
-        mc.player.setSprinting(true);
+        if (mc.player != null && mc.world != null) {
+            mc.player.setSprinting(mc.options.forwardKey.isPressed());
+        }
     }
-
 }

@@ -1,67 +1,55 @@
 package wtf.taksa.engine.events.storage;
 
+import lombok.Getter;
 import wtf.taksa.engine.Engine;
 import wtf.taksa.engine.events.controllers.Event;
+import wtf.taksa.engine.events.controllers.EventType;
 
-/**
- * Автор: NoCap
- * Дата создания: 18.07.2025
- */
 public abstract class InputEvents extends Event {
-
-    private InputEvents() {
+    private InputEvents(EventType type) {
+        super(type);
     }
 
+    @Getter
     public static class Keyboard extends InputEvents {
-        private final int key;
-        private final int action;
+        private int key;
+        private int action;
 
-        public Keyboard(int key, int action) {
-            super();
-            this.key = key;
-            this.action = action;
+        private Keyboard() {
+            super(EventType.Unknown);
         }
 
-        public int getKey() {
-            return key;
-        }
-
-        public int getAction() {
-            return action;
+        public static Keyboard obtain(EventType type, int key, int action) {
+            Keyboard keyboard = Event.obtain(Keyboard.class, Keyboard::new);
+            keyboard.reset(type);
+            keyboard.key = key;
+            keyboard.action = action;
+            return keyboard;
         }
     }
 
+    @Getter
     public static class Mouse extends InputEvents {
         private double x, y;
-        private final int button;
-        private final int action;
+        private int button;
+        private int action;
 
-        public Mouse(int button, int action) {
-            super();
-            this.button = button;
-            this.action = action;
+        private Mouse() {
+            super(EventType.Unknown);
+        }
+
+        public static Mouse obtain(EventType type, int button, int action) {
+            Mouse mouse = Event.obtain(Mouse.class, Mouse::new);
+            mouse.reset(type);
+            mouse.button = button;
+            mouse.action = action;
+            return mouse;
         }
 
         public void post(double mx, double my) {
             this.x = mx;
             this.y = my;
             Engine.EVENT_BUS.post(this);
-        }
-
-        public double getX() {
-            return x;
-        }
-
-        public double getY() {
-            return y;
-        }
-
-        public int getButton() {
-            return button;
-        }
-
-        public int getAction() {
-            return action;
         }
     }
 }

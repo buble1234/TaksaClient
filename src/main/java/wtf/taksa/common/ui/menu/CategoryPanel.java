@@ -19,10 +19,10 @@ public class CategoryPanel {
     private float x, y, width, height;
     private boolean extended = true;
 
-    private static final float HEADER_HEIGHT = 25; // Увеличена высота заголовка
-    private static final float MODULE_HEIGHT = 25; // Увеличена высота кнопки модуля
-    private static final float PADDING = 6; // Увеличены отступы
-    private static final float PANEL_WIDTH = 120; // Фиксированная ширина панели
+    private static final float HEADER_HEIGHT = 25;
+    private static final float MODULE_HEIGHT = 25;
+    private static final float PADDING = 6;
+    private static final float PANEL_WIDTH = 120;
 
     public CategoryPanel(FunctionCategory category, float x, float y) {
         this.category = category;
@@ -38,18 +38,16 @@ public class CategoryPanel {
     }
 
     public void draw(float mouseX, float mouseY, float partialTicks) {
-        // Рендерим фон панели
         Builder.rectangle()
                 .size(width, height)
-                .color(new Color(25, 25, 25, 220).getRGB()) // Темный, почти черный фон
+                .color(new Color(25, 25, 25, 220).getRGB())
                 .smoothness(1.0f)
                 .build()
                 .render(x, y);
 
-        // Рендерим заголовок категории
         Builder.rectangle()
                 .size(width, HEADER_HEIGHT)
-                .color(new Color(40, 40, 40, 240).getRGB()) // Более выраженный заголовок
+                .color(new Color(40, 40, 40, 240).getRGB())
                 .smoothness(1.0f)
                 .build()
                 .render(x, y);
@@ -78,9 +76,8 @@ public class CategoryPanel {
     }
 
     public void mouseClicked(float mouseX, float mouseY, int mouseButton) {
-        // Клик по заголовку для сворачивания/разворачивания
         if (mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + HEADER_HEIGHT) {
-            if (mouseButton == 1) { // Правая кнопка мыши
+            if (mouseButton == 1) {
                 extended = !extended;
                 updateHeight();
             }

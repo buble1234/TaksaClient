@@ -3,10 +3,9 @@ package wtf.taksa.common.functions.storage.player;
 import wtf.taksa.common.functions.Function;
 import wtf.taksa.common.functions.FunctionCategory;
 import wtf.taksa.common.functions.FunctionRegistry;
-import wtf.taksa.common.functions.settings.SliderSetting;
 import wtf.taksa.engine.events.controllers.Listen;
 import wtf.taksa.engine.events.storage.TickEvents;
-import wtf.taksa.mixin.acess.LivingEntityAccess;
+import wtf.taksa.mixin.access.LivingEntityAccess;
 
 /**
  * Автор: Norendov
@@ -24,5 +23,4 @@ public class JumpDelay extends Function {
             ((LivingEntityAccess) mc.player).setLastJumpCooldown(0);
         }
     }
-
 }

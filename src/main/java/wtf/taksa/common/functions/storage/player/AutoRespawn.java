@@ -1,8 +1,6 @@
 package wtf.taksa.common.functions.storage.player;
 
-import com.google.common.eventbus.Subscribe;
 import net.minecraft.client.gui.screen.DeathScreen;
-import org.lwjgl.glfw.GLFW;
 import wtf.taksa.common.functions.Function;
 import wtf.taksa.common.functions.FunctionCategory;
 import wtf.taksa.common.functions.FunctionRegistry;
@@ -15,7 +13,7 @@ import wtf.taksa.engine.events.storage.TickEvents;
  * For Taksa
  */
 
-@FunctionRegistry(name = "Auto Respawn", category = FunctionCategory.PLAYER, bind = 0)
+@FunctionRegistry(name = "Auto Respawn", category = FunctionCategory.PLAYER)
 public class AutoRespawn extends Function {
 
     @Listen
@@ -26,6 +24,4 @@ public class AutoRespawn extends Function {
             mc.player.requestRespawn();
         }
     }
-
 }
-

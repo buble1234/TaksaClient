@@ -1,6 +1,7 @@
 package wtf.taksa.common.ui.menu.component;
 
-import wtf.taksa.common.functions.settings.BooleanSetting;
+import lombok.Setter;
+import wtf.taksa.common.functions.settings.impl.BooleanSetting;
 import wtf.taksa.common.render.builders.Builder;
 import wtf.taksa.common.render.msdf.MsdfFont;
 import wtf.taksa.common.other.TextAlign;
@@ -10,6 +11,8 @@ import java.awt.Color;
 
 public class BooleanSettingComponent extends SettingComponent<Boolean> {
     private final BooleanSetting setting;
+
+    @Setter
     private float x, y, width, height;
 
     public BooleanSettingComponent(BooleanSetting setting, float x, float y, float width, float height) {
@@ -23,17 +26,15 @@ public class BooleanSettingComponent extends SettingComponent<Boolean> {
 
     @Override
     public void draw(float mouseX, float mouseY, float partialTicks) {
-        // Рендерим фон компонента настройки
         Builder.rectangle()
                 .size(width, height)
-                .color(new Color(35, 35, 35, 200).getRGB()) // Более темный и современный фон
+                .color(new Color(35, 35, 35, 200).getRGB())
                 .smoothness(1.0f)
                 .build()
                 .render(x, y);
 
         MsdfFont font = FontType.sf_regular.get();
 
-        // Рендерим название настройки
         Builder.text()
                 .font(font)
                 .text(setting.getName())
@@ -41,11 +42,10 @@ public class BooleanSettingComponent extends SettingComponent<Boolean> {
                 .color(Color.WHITE.getRGB())
                 .align(TextAlign.LEFT)
                 .build()
-                .render(x + 8, y + height / 2 - 7); // Увеличенный отступ
+                .render(x + 8, y + height / 2 - 7);
 
-        // Рендерим состояние (вкл/выкл)
         String stateText = setting.getValue() ? "ON" : "OFF";
-        int stateColor = setting.getValue() ? new Color(70, 200, 70).getRGB() : new Color(200, 70, 70).getRGB(); // Более яркие цвета
+        int stateColor = setting.getValue() ? new Color(70, 200, 70).getRGB() : new Color(200, 70, 70).getRGB();
 
         Builder.text()
                 .font(font)
@@ -54,7 +54,7 @@ public class BooleanSettingComponent extends SettingComponent<Boolean> {
                 .color(stateColor)
                 .align(TextAlign.RIGHT)
                 .build()
-                .render(x + width - 8, y + height / 2 - 7); // Увеличенный отступ
+                .render(x + width - 8, y + height / 2 - 7);
     }
 
     @Override
@@ -66,20 +66,10 @@ public class BooleanSettingComponent extends SettingComponent<Boolean> {
 
     @Override
     public void mouseReleased(float mouseX, float mouseY, int state) {
-        // No specific logic needed for boolean settings on mouse release
     }
 
     @Override
     public void keyTyped(char typedChar, int keyCode) {
-        // No keyboard input needed for boolean settings
-    }
-
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    public void setY(float y) {
-        this.y = y;
     }
 
     private boolean isHovered(float mouseX, float mouseY) {

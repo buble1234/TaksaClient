@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import wtf.taksa.engine.Engine;
+import wtf.taksa.engine.events.controllers.EventType;
 import wtf.taksa.engine.events.storage.RenderEvents;
 import wtf.taksa.unclassified.interfaces.ContextWrapper;
 
@@ -17,6 +17,11 @@ public abstract class MixinInGameHud implements ContextWrapper {
 
     @Inject(at = @At("HEAD"), method = "render")
     public void onRenderScreen(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
-        Engine.EVENT_BUS.post(new RenderEvents.Screen(new MatrixStack(), tickCounter.getTickDelta(false), context));
+        RenderEvents.Screen event = RenderEvents.Screen.obtain(EventType.Pre, new MatrixStack(), tickCounter.getTickDelta(false), context);
+        try {
+            event.call();
+        } finally {
+            event.release();
+        }
     }
 }

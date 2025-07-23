@@ -1,4 +1,4 @@
-package wtf.taksa.common.functions.settings;
+package wtf.taksa.common.functions.settings.api;
 
 public abstract class Setting<T> {
     private final String name;

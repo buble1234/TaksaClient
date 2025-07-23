@@ -1,5 +1,9 @@
-package wtf.taksa.common.functions.settings;
+package wtf.taksa.common.functions.settings.impl;
 
+import lombok.Getter;
+import wtf.taksa.common.functions.settings.api.Setting;
+
+@Getter
 public class SliderSetting extends Setting<Double> {
     private final double min;
     private final double max;
@@ -11,18 +15,6 @@ public class SliderSetting extends Setting<Double> {
         this.max = max;
         this.step = step;
         setValue(value);
-    }
-
-    public double getMin() {
-        return min;
-    }
-
-    public double getMax() {
-        return max;
-    }
-
-    public double getStep() {
-        return step;
     }
 
     @Override
